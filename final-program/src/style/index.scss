@@ -1,0 +1,298 @@
+* {
+  //border: 1px solid black;
+  font-family: "Source Sans", "Source Han Serif TC";
+}
+body {
+  margin: 0;
+}
+
+@mixin size($w, $h) {
+  width: $w;
+  height: $h;
+}
+@mixin font($fs, $fw, $fz, $lh) {
+  font-style: $fs;
+  font-weight: $fw;
+  font-size: $fz;
+  line-height: $lh;
+}
+@mixin imgCenter {
+  background-position: center;
+  background-repeat: none;
+  background-size: cover;
+}
+h1 {
+  @include font(normal, bold, 48px, 125%);
+}
+h2 {
+  @include font(normal, bold, 40px, 125%);
+}
+h3 {
+  @include font(normal, bold, 32px, 125%);
+}
+h4 {
+  @include font(normal, bold, 24px, 125%);
+}
+h5 {
+  @include font(normal, bold, 20px, 125%);
+}
+
+p.body1 {
+  @include font(normal, normal, 16px, 140%);
+}
+
+nav {
+  @include size(100%, 64px);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  z-index: 5;
+  background-color: white;
+  .logo {
+    margin-left: 96px;
+  }
+  .tags {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 64px;
+    //min-width: 550px;
+    .nav-tag {
+      margin-left: 24px;
+    }
+  }
+}
+
+//About page
+#about {
+  .about-header {
+    position: relative;
+    width: 100%;
+    height: 62vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+    padding-top: 64px;
+    //background-color: grey;
+    color: white;
+    overflow: hidden;
+    background-image: url("https://images.unsplash.com/photo-1510146758428-e5e4b17b8b6a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+    @include imgCenter;
+    h1,
+    h3 {
+      z-index: 2;
+    }
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      opacity: 0.3;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: black;
+      filter: blur(5px);
+    }
+  }
+  .logo-container {
+    padding: 20vh 0px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .school-logo {
+      max-height: 60px;
+    }
+  }
+  .found-purpose {
+    @include size(100%, 46.8vh);
+    background-color: grey;
+    display: flex;
+    margin-bottom: 23vh;
+    .purpose-container {
+      @include size(calc(100% * 7 / 12), 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      box-sizing: border-box;
+      padding-left: 96px;
+      padding-right: calc(100% * 1 / 12);
+      h2 {
+        margin-top: 0;
+      }
+    }
+    .purposeImg {
+      @include size(calc(100% * 5 / 12), 100%);
+      background-color: #fff;
+      background-image: url("https://images.unsplash.com/photo-1600195077909-46e573870d99?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
+      background-position: center;
+      background-repeat: none;
+      background-size: cover;
+    }
+  }
+  .team-intro {
+    padding: 0px 96px;
+    .intro-content-container {
+      margin-bottom: 96px;
+      p {
+        width: 80%;
+      }
+    }
+    .members {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+
+      .member-column {
+        @include size(45%, 100%);
+        .member-data {
+          min-height: 170px;
+          display: flex;
+          margin-bottom: 64px;
+          .member-photo {
+            @include size(170px, 170px);
+            @include imgCenter;
+            min-width: 170px;
+            margin: 0;
+          }
+          .member-description {
+            max-height: 100%;
+
+            box-sizing: border-box;
+            padding-left: 48px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            h4 {
+              margin: 0;
+            }
+            p {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#login {
+  width: 100%;
+  height: 100vh;
+  .login-container {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto auto;
+    width: 28vw;
+    min-width: 330px;
+    height: 60vh;
+    border-radius: 5%;
+    box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
+    .form {
+      width: 80%;
+    }
+    .login-logo {
+      @include size(100px, 100px);
+      border-radius: 100%;
+      background-color: grey;
+      margin-bottom: 24px;
+    }
+    .register-logo {
+      @include size(150px, 100px);
+      border-radius: 10%;
+      background-color: grey;
+      margin-bottom: 24px;
+    }
+  }
+  .login-type {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .types {
+      display: flex;
+      flex-direction: row;
+      height: fit-content;
+      .login-as-student-btn {
+        margin-right: 24px;
+      }
+      .type {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        .type-logo {
+          @include size(160px, 160px);
+          background-color: grey;
+          border-radius: 100%;
+          margin-bottom: 16px;
+        }
+      }
+      margin-bottom: 64px;
+    }
+    .not-member {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      h5 {
+        margin: 0;
+        margin-bottom: 12px;
+      }
+    }
+  }
+}
+
+#account-management {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+
+  .management-container {
+    // @include size(50%, 50%);
+    min-height: 50%;
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10%;
+    box-sizing: border-box;
+    padding: 2%;
+    border-radius: 20px;
+    box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
+    h1 {
+      margin-bottom: 24px;
+    }
+    .dash-board {
+      @include size(100%, 100%);
+      .memberData-container {
+        display: flex;
+        ul {
+          width: 100%;
+        }
+      }
+    }
+    .btn-container {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+      margin-bottom: 16px;
+      .btn {
+        margin-right: 16px;
+      }
+    }
+  }
+}
