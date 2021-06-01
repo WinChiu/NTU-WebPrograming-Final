@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import Header from "./note/Header";
+import Note from "./note/Note_index";
+import AddNote from "./note/AddNote";
+import { React,useState } from 'react'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const [mode,setMode] =useState(2);
+  
+  const Index = (
+    <div>
+      test
     </div>
-  );
+
+  )
+  return (
+    <>
+      <Header/>
+      <Note/>
+    </>
+    );
 }
 
 export default App;
