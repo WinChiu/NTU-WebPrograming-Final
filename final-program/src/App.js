@@ -3,6 +3,9 @@ import About from "./components/About";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Account from "./components/Account";
+import Header from "./note/Header";
+import Note from "./note/Note_index";
+import AddNote from "./note/AddNote";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -16,6 +19,10 @@ function App() {
       <Switch>
         <Route exact path="/">
           <About />
+        </Route>
+        <Route path="/note">
+          <Header />
+          <Note />
         </Route>
         <Route path="/about">
           <About />
