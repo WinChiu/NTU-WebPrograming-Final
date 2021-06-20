@@ -1,37 +1,52 @@
 import "./style/index.css";
-import About from "./components/About";
+import AboutPage from "./pages/AboutPage";
+import AccountPage from "./pages/AccountPage";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Account from "./components/Account";
 import Header from "./components/note/Header";
 import Note from "./components/note/Note_index";
 import AddNote from "./components/note/AddNote";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+const LOCALSTORAGE_LOGIN_STATUS = "isLoginPrev";
+const LOCALSTORAGE_LOGIN_MEMBER = "memberNamePrev";
+
 function App() {
-  const [isLogin, setIsLogin] = useState(false);
-  const [memberName, setMemberName] = useState("default name");
+  const isLoginPrev = localStorage.getItem(LOCALSTORAGE_LOGIN_STATUS);
+  const memberNamePrev = localStorage.getItem(LOCALSTORAGE_LOGIN_MEMBER);
+  console.log(isLoginPrev, memberNamePrev);
+  const [isLogin, setIsLogin] = useState(isLoginPrev || "notLogin");
+  const [memberName, setMemberName] = useState(memberNamePrev || "");
+
+  localStorage.setItem(LOCALSTORAGE_LOGIN_STATUS, isLogin);
+  localStorage.setItem(LOCALSTORAGE_LOGIN_MEMBER, memberName);
+
 
   return (
     <Router>
-      <Navbar memberName={memberName} isLogin={isLogin} />
+      <Navbar memberName={memberName} isLogin={isLogin} setIsLogin={setIsLogin} setMemberName={setMemberName} />
       <Switch>
         <Route exact path="/">
-          <About />
+          <AboutPage />
         </Route>
-        <Route path="/note">
+        {/* <Route path="/note">
           <Header />
           <Note />
-        </Route>
+        </Route> */}
         <Route path="/about">
-          <About />
-        </Route>
-        <Route path="/login">
-          <Login memberName={memberName} setIsLogin={setIsLogin} />
+          <AboutPage />
         </Route>
         <Route path="/account">
-          <Account />
+          <AccountPage
+            memberName={memberName}
+            setMemberName={setMemberName}
+            setIsLogin={setIsLogin}
+            isLogin={isLogin}
+            LOCALSTORAGE_LOGIN_STATUS={LOCALSTORAGE_LOGIN_STATUS}
+            LOCALSTORAGE_LOGIN_MEMBER={LOCALSTORAGE_LOGIN_MEMBER}
+          />
         </Route>
       </Switch>
     </Router>

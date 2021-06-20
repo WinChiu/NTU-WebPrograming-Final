@@ -1,146 +1,135 @@
-@import url('https://fonts.googleapis.com/earlyaccess/cwtexyen.css');
+@import url("https://fonts.googleapis.com/earlyaccess/cwtexyen.css");
 
-.header{
-    /*background-color: antiquewhite;*/
-    top:0%;
-    width: 100%;
-    z-index: 999;
+.header {
+  /*background-color: antiquewhite;*/
+  top: 0%;
+  width: 100%;
+  z-index: 999;
 }
 
-.header-space{
-    margin-right: 80%;
-
+.header-space {
+  margin-right: 80%;
 }
 
 /* header css */
-.header-nav{
-    background-image: url("./images/header-3.jpg");
-    /*background-size: contain;*/
-    /*background-color: antiquewhite;*/
-    /*right:5%;*/
-    padding: 1%;
-    max-height: 10%;
-    width: 100%;
-    /*flex-wrap: wrap;
+.header-nav {
+  /* background-image: url("./images/header-3.jpg"); */
+  /*background-size: contain;*/
+  /*background-color: antiquewhite;*/
+  /*right:5%;*/
+  padding: 1%;
+  max-height: 10%;
+  width: 100%;
+  /*flex-wrap: wrap;
     justify-content: flex-end;*/
-    position:fixed;
-    z-index: 999;
+  position: fixed;
+  z-index: 999;
 }
 
-.header .font{
-    font-family: 'cwTeXYen', Times, serif;
-    font-size: 25px;
+.header .font {
+  font-family: "cwTeXYen", Times, serif;
+  font-size: 25px;
 }
 
-
-.search{
-    background-color: rgb(228, 223, 223);
-    top:10%;
-    width:100%;
-    height:40%;
-    position: absolute;
-    z-index: 0;
+.search {
+  background-color: rgb(228, 223, 223);
+  top: 10%;
+  width: 100%;
+  height: 40%;
+  position: absolute;
+  z-index: 0;
 }
 
-.form{
-    left:30%;
-    top:30%;
-    position: relative;
-    z-index: 0;
+/* .form {
+  left: 30%;
+  top: 30%;
+  position: relative;
+  z-index: 0;
+} */
+
+.button {
+  left: 900px;
+  top: 14%;
+  position: absolute;
+  z-index: 0;
 }
 
-.button{
-    left: 900px;
-    top:14%;
-    position: absolute;
-    z-index: 0;
+.tagtype {
+  left: 20%;
+  position: absolute;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: "cwTeXYen", Times, serif;
+  z-index: 0;
 }
 
-.tagtype{
-
-    left:20%;
-    position:absolute; 
-    font-size: x-large;
-    font-weight: bold;
-    font-family: 'cwTeXYen', Times, serif;
-    z-index: 0;
+#tagtype1 {
+  top: 60%;
 }
 
-#tagtype1
-{
-    top:60%;
-
+#tagtype2 {
+  top: 70%;
 }
 
-#tagtype2
-{
-    top:70%;
+.tag {
+  padding: 100px;
+  margin: 100px;
+  font-family: "cwTeXYen", Times, serif;
+  z-index: 0;
+  border-style: dotted;
+  border-radius: 100px;
 }
 
-.tag{
-    padding: 100px;
-    margin: 100px;
-    font-family: 'cwTeXYen', Times, serif;
-    z-index: 0;
-    border-style: dotted;
-    border-radius:100px;
+.notes {
+  padding: 10px;
+  top: 90%;
+  left: 10%;
+  right: 10%;
+  position: absolute;
+  /*min-width: 80%;*/
+  /*min-width: 600px;*/
+  /*使水平排列 */
+  display: flex;
+  /*使超過頁面範圍時自動換行*/
+  flex-wrap: wrap;
 }
 
-.notes{
-    padding:10px;
-    top:90%;
-    left:10%;
-    right: 10%;
-    position:absolute;
-    /*min-width: 80%;*/
-    /*min-width: 600px;*/
-    /*使水平排列 */
-    display: flex;
-    /*使超過頁面範圍時自動換行*/
-    flex-wrap: wrap;
+.note {
+  display: inline;
 }
 
-.note{
-    display: inline;
-
+.confirm {
+  /*使水平排列 */
+  display: flex;
+  flex-wrap: wrap;
 }
 
-.confirm{
-
-    /*使水平排列 */
-    display: flex;
-       flex-wrap: wrap; 
-}
-
-.confirm_photo{
-    display: inline;
-
+.confirm_photo {
+  display: inline;
 }
 
 .confirm_buy {
-    margin-left: 100px;
-    margin-top: 10px;
+  margin-left: 100px;
+  margin-top: 10px;
 }
 
-.confirm_description{
-    margin-top: 30px;
-    font-size: large;
+.confirm_description {
+  margin-top: 30px;
+  font-size: large;
 }
 
-.modal_texttitle{
-
-    font-weight:bold;
-    font-size:20px;
+.modal_texttitle {
+  font-weight: bold;
+  font-size: 20px;
 }
 
-.modal_subject{
-    color: blue;
-
+.modal_subject {
+  color: blue;
 }
 
-.test{
-    top:100000px;
-    position: relative;
+.test {
+  top: 100000px;
+  position: relative;
 }
 
 /* AddNote-simple.js */
@@ -148,19 +137,19 @@
   top: 200px;
   position: absolute;
   font-family: sans-serif;
-  top:50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
 .upload {
-    background-color: #fff;
-    border: solid 2px #e6e6e6;
-    padding: 16px 25px;
-    border-radius: 30px;
-    font-size: 17px;
-    line-height: 1.24;
-    margin-bottom: 10px;
+  background-color: #fff;
+  border: solid 2px #e6e6e6;
+  padding: 16px 25px;
+  border-radius: 30px;
+  font-size: 17px;
+  line-height: 1.24;
+  margin-bottom: 10px;
 }
 
 /* AddNote-clip.js */
@@ -168,7 +157,7 @@
   top: 200px;
   position: absolute;
   font-family: sans-serif;
-  top:50%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }

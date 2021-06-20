@@ -88,8 +88,16 @@ nav .tags {
   margin-right: 64px;
 }
 
+nav .tags h5 {
+  margin-bottom: 0;
+}
+
 nav .tags .nav-tag {
   margin-left: 24px;
+}
+
+nav .tags Button {
+  margin-left: 12px;
 }
 
 #about .about-header {
@@ -291,7 +299,7 @@ nav .tags .nav-tag {
           box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
 }
 
-#login .login-container .form {
+#login .login-container .login-form {
   width: 80%;
 }
 
@@ -325,6 +333,10 @@ nav .tags .nav-tag {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 0 24px;
 }
 
 #login .login-type .types {
@@ -338,6 +350,7 @@ nav .tags .nav-tag {
   height: -webkit-fit-content;
   height: -moz-fit-content;
   height: fit-content;
+  max-width: 100%;
   margin-bottom: 64px;
 }
 

@@ -1,5 +1,5 @@
 * {
-  //border: 1px solid black;
+  // border: 1px solid black;
   font-family: "Source Sans", "Source Han Serif TC";
 }
 body {
@@ -50,6 +50,7 @@ nav {
   top: 0;
   z-index: 5;
   background-color: white;
+
   .logo {
     margin-left: 96px;
   }
@@ -60,8 +61,14 @@ nav {
     align-items: center;
     margin-right: 64px;
     //min-width: 550px;
+    h5 {
+      margin-bottom: 0;
+    }
     .nav-tag {
       margin-left: 24px;
+    }
+    Button {
+      margin-left: 12px;
     }
   }
 }
@@ -197,7 +204,7 @@ nav {
     height: 60vh;
     border-radius: 5%;
     box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
-    .form {
+    .login-form {
       width: 80%;
     }
     .login-logo {
@@ -218,11 +225,13 @@ nav {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    width: fit-content;
+    padding: 0 24px;
     .types {
       display: flex;
       flex-direction: row;
       height: fit-content;
+      max-width: 100%;
       .login-as-student-btn {
         margin-right: 24px;
       }
