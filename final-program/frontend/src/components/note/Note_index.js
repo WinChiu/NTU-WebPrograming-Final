@@ -1,26 +1,21 @@
 import { React, useState, useEffect } from "react";
-
-//import { div, Button } from "react-bootstrap"
+import { Link } from "react-router-dom";
+//files
 import "../../style/note.css";
 import Note from "./Note"
-import { Modal} from 'antd';
-import searchbackground from "./images/search-background.jpg";
+import notes_fake from "../../data/notes.js"
+import searchbackground from "../../data/images/search-background.jpg";
+import { getItems } from '../../api/addnote';
+
+//package
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import SIcon from '@material-ui/icons/Delete';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import Icon from '@material-ui/core/Icon';
-import SaveIcon from '@material-ui/icons/Save';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
+import  {Button} from 'antd';
+ 
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -70,90 +65,6 @@ const tagsStyles = makeStyles((theme) => ({
   },
 }));
 
-const images = [
-  {
-    title: '123英文',
-    grade: "小一",
-    subject: "英文",
-    author: "小白小子",
-    rate: 2.5,
-    price: 100,
-    hassold: 9,
-  },
-  {
-    title: '數學',
-        grade: "小一",
-    subject: "數學",
-    author: "小黑",
-    rate: 2.5,
-    price: 100,
-    hassold: 9,
-    tag: [],
-  },
-  {
-    title: '數學',
-        grade: "小一",
-    subject: "數學",
-    author: "小黃",
-    rate: 4.5,
-    hassold: 9,
-    price: 100,
-  },
-    {
-    title: '物理',
-        grade: "國二",
-    subject: "物理",
-    author: "小藍",
-    rate: 2,
-    hassold: 9,
-    price: 100000,
-  },
-    {
-    title: '網服',
-        grade: "小五",
-    subject: "網路服務程式",
-    author: "小紫",
-    rate: 5,
-    hassold: 9,
-    price: 500,
-  },
-    {
-    title: '數學',
-        grade: "小六",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 9,
-    price: 100,
-  },
-    {
-    title: '國文',
-        grade: "國三",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 97,
-    price: 100,
-  },
-    {
-    title: '歷史',
-    grade: "小二",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 89,
-    price: 100,
-  },
-    {
-    title: '生物',
-    grade: "高三",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 1,
-    price: 100,
-  },
-];
 
 
 const NoteIndex = () =>{
@@ -179,22 +90,30 @@ const NoteIndex = () =>{
     };
 
     const handleClick_search = async ()=>{
-
         setGrade(tempgrade);
         setSubject(tempsubject);
         setKeyword(tempkeyword);
         //這裡我們需要使用temp來判斷而非上面的state，因為setstate 可能尚未完成就會進行下列程式碼，而await 對setState 不起作用
-        setNotes(images.filter(note=>
-            (note.grade === tempgrade || tempgrade === "") && (note.subject === tempsubject || tempsubject === "") && (note.title.search(tempkeyword)!==-1 || tempkeyword === "")
-
+        setNotes(notes_fake.filter(note=>{
+            return (note.grade === tempgrade || tempgrade === "") && (note.subject === tempsubject || tempsubject === "") && (note.title.search(tempkeyword)!==-1 || tempkeyword === "")
+            }
           )
         )
     }
 
     useEffect(() => {
-      setNotes(images);
+	    const fetchData = async () => {
+	      const result = await getItems();
+	      console.log('fetch data:', result)
+	      setNotes(result)
+	    }
+	    fetchData()
+	  }, [])
+    /*
+    useEffect(() => {
+      setNotes(notes_fake);
     }, []);
-
+    */
     const cp_rate= (a,b) =>{
         if (a.rate < b.rate)
           return 1
@@ -238,7 +157,7 @@ const NoteIndex = () =>{
       console.log(notes.map(e=>e))
     }
     return (
-        <>
+        <section id="note">
         <div className="search" style={{backgroundImage:`url(${searchbackground})`, backgroundSize:"contain"}}>
         <div className="form">
           <FormControl className={BootstrapInput.margin}>
@@ -302,79 +221,51 @@ const NoteIndex = () =>{
 
         </div>
         <div className="tags" >
-            <div className="tagtype" id="tagtype1"> 熱門標籤{"  "}
+            <div className="tagtype" id="tagtype1"> 熱門標籤(目前無效，不知道標籤要放甚麼){"  "}
             {/* TOFIX
             hottag.map((e,index)=>{
                 <div>e</div>
             })*/
             }
             {/*borderRadius無效*/}
-            <Button variant="contained" className="tag">英文</Button>
+            <Button type="primary" className="tag">英文</Button>
             {" "}
-            <Button variant="contained" className="tag">數學</Button>
+            <Button type="primary" className="tag">數學</Button>
             {" "}
-            <Button variant="contained" className="tag">網路服務程式設計</Button>
+            <Button type="primary" className="tag">網路服務程式設計</Button>
 
             </div>
             <div className="tagtype" id="tagtype2">  {" 排序方式 "}
-            <Button variant="contained" className="tag" onClick={handleClick_sort_by_rate}>評分從高到低</Button>
+            <Button type="primary" className="tag" onClick={handleClick_sort_by_rate}>評分從高到低</Button>
             {" "}
-            <Button variant="contained" className="tag" onClick={handleClick_sort_by_hassold}>觀看數從高到低</Button>
+            <Button type="primary" className="tag" onClick={handleClick_sort_by_hassold}>觀看數從高到低</Button>
             {" "}
-            <Button variant="contained" className="tag" onClick={handleClick_sort_by_price}>價格從低到高</Button>
+            <Button type="primary" className="tag" onClick={handleClick_sort_by_price}>價格從低到高</Button>
 
             </div>
         </div>
         <div className="notes">
-        {/*subject === ""
-        ?
-        grade === ""
-          ? // 不指定科目與年級
-          notes.map((note,index)=>(
-            <>
-            <Note note={note} key={index}/>
-            <div></div>
-            </>
-          ))
-          : // 只指定年級
-          notes.map((note,index)=>(
-            note.grade === grade
-              ?
-              <Note note={note} key={index}/>
-              :
-              <div></div>
-          ))
-        :
-        grade === ""
-          ?// 只指定科目
-          notes.map((note,index)=>(
-              note.subject === subject
-              ?
-              <Note note={note} key={index}/>
-              :
-              <div></div>
-          ))
-          ://指定科目與年級d
-          notes.map((note,index)=>(
-              note.subject === subject && note.grade === grade
-              ?
-              <Note note={note} key={index}/>
-              :<div></div>
-          ))
-
-         */}
           {notes.map((note,index)=>(
 
             <Note note={note} key={index}/>
           ))}
         </div>
 
+        <div className="enter_add_note">
+            <Link to="./upload/note">
+              <Button type="primary" shape="round">販賣你自己的筆記!</Button>
+            </Link>
+        </div>
+        
+        
         {/*only for test scrolling*/}
-
+        {/*
         <div className="test">
             1
         </div>
-        </>
+        */
+        }
+        </section>
       );
   }
 

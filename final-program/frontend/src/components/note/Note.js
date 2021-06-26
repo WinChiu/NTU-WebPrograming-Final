@@ -1,13 +1,13 @@
 import { React, useState, useEffect } from "react";
 import "../../style/note.css";
-import noteimg from "./images/test.jpg"
+import noteimg from "../../data/images/test.jpg"
 //使用所有antd都需引入CSS
 import 'antd/dist/antd.css';
 import { Rate , Modal, Image , message} from 'antd';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import { blue } from "@material-ui/core/colors";
+
 <>
 <link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css" rel="stylesheet"></link>
 <link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet"></link>
@@ -168,6 +168,8 @@ const Note = (props) =>{
       setNotesubject(props.note.subject);
       setNotetitle(props.note.title);
       setNotetag(props.note.tag);
+      //console.log(props.note.rate)
+      //console.log(typeof(props.note.rate))
       //setNoteimg(props.note.img);
     }, []);
 
@@ -212,12 +214,14 @@ const Note = (props) =>{
             </div>
             <div className={imgs.textauthor}>
             {
+            /*
             props.note.author.length >= 5
             ?
               `作者 : ${props.note.author}`
             :
               `作者 : ${props.note.author}
               `
+            */
             }
             </div>
             <div className={imgs.textgrade}>
@@ -227,14 +231,19 @@ const Note = (props) =>{
             {props.note.subject}
             </div>
             <div className={imgs.texthassold}>
-            觀看次數 : {props.note.hassold}
+            觀看次數 : {props.note.hassold === false ? "0" : props.note.hassold}
             </div>
             <div className={imgs.textprice}>
             售價 : {props.note.price}
             </div>
           </span>
           <span className={imgs.rate}>
-            <Rate disabled defaultValue={props.note.rate} allowHalf={true} />
+            {props.note.rate !== -1
+            ?
+              <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
+            :
+              "還沒有評論喔~"
+            }
           </span>
         </ButtonBase>
         <Modal title={"購買筆記"} visible={modal} okText="購買" cancelText="取消" width="600px"
@@ -245,7 +254,12 @@ const Note = (props) =>{
               <Image.PreviewGroup>
               <Image
                 width={200}
-              src={noteimg}
+                src={ props.note.img 
+                ?
+                props.note.img
+                :
+                noteimg
+                }
             />
           </Image.PreviewGroup>
           </div>
@@ -255,12 +269,12 @@ const Note = (props) =>{
             </p>
             <div className="modal_textauthor">
             {
-            props.note.author.length >= 5
-            ?
-              `作者 : ${props.note.author}`
-            :
-              `作者 : ${props.note.author}
-              `
+            //props.note.author.length >= 5 ?
+            //  
+            //  `作者 : ${props.note.author}`
+            //:
+            //  `作者 : ${props.note.author}
+            //  `
             }
             </div>
             <div className="modal_textgrade">
@@ -270,18 +284,25 @@ const Note = (props) =>{
             科目 : {props.note.subject}
             </div>
             <div className="modal_texthassold">
-            觀看次數 : {props.note.hassold}
+            觀看次數 : {
+              props.note.hassold === false ? "0" : props.note.hassold}
             </div>
             <div className="modal_textprice">
             售價 : {props.note.price}
             </div>
             <span className="modal_rate">
-              <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
+              {
+                props.note.rate !== -1
+                ?
+                  <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
+                :
+                  "還沒有評論喔~"
+              }
             </span>
           </div>
             </div>
           <p className="confirm_description">
-            介紹: ......
+            介紹:{props.note.description}
           </p>
         </Modal>
         </>

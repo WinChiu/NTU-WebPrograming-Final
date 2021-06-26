@@ -1,4 +1,85 @@
 import React, { useState } from 'react';
+import { Upload } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import axios from "axios"
+
+/*
+const noteSchema = new Schema({
+  title: { type: String, require: true },
+  grade: { type: String, require: true },
+  subject: { type: String, require: true },
+  // 連結到會員資料
+  author: { type: mongoose.Types.ObjectId},
+  rate: { type: Number, require: true },
+  price: { type: Number, require: true },
+  hassold: { type: Boolean, require: true },
+  img: { type: [String] },
+  description: { type: String, require: true },
+});
+*/
+
+const AddNote = () => {
+  const [fileList, setFileList] = useState([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+  ]);
+
+  const onChange = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+    console.log(fileList)
+  };
+
+  const onPreview = async file => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise(resolve => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow.document.write(image.outerHTML);
+  };
+
+  const onSubmit = async (e) => {
+      e.preventDefault()
+      const formData = new FormData()
+      formData.append('file', fileList)
+      axios.post("http://localhost:3000/upload/note", formData, {
+      }).then(res => {
+           console.log(res)
+       })
+  }
+
+  return (
+    <div className = "Add-c">
+      <ImgCrop rotate>
+        <Upload
+          action="http://localhost:3000/upload/note"
+          listType="picture-card"
+          fileList={fileList}
+          onChange={onChange}
+          onPreview={onPreview}
+        >
+          {fileList.length < 5 && '+ Upload'}
+        </Upload>
+      </ImgCrop>
+    </div>
+  );
+};
+
+export default AddNote;
+
+
+/*
+import React, { useState } from 'react';
 import { Upload,Select } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import axios from "axios";
@@ -28,12 +109,7 @@ function onSearch(val) {
 
 function AddNote ()  {
   const [fileList, setFileList] = useState([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: "./images/test.jpg",
-    },
+
   ]);
 
   const onChange = ({ fileList: newFileList }) => {
@@ -109,4 +185,4 @@ function AddNote ()  {
   );
 };
 
-export default AddNote;
+export default AddNote;*/

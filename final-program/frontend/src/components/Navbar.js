@@ -10,7 +10,9 @@ export default function Navbar({ memberName, isLogin }) {
           <h5 className="nav-tag">關於我們</h5>
         </Link>
         <h5 className="nav-tag">國內外升學資源</h5>
-        <h5 className="nav-tag">高中生學習資源</h5>
+        <Link to="/note">
+          <h5 className="nav-tag">高中生學習資源</h5>
+        </Link>
         <Link to="/login">
           <h5 className="nav-tag">{isLogin ? memberName + " 您好" : "登入 / 註冊"}</h5>
         </Link>

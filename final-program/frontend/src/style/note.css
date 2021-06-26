@@ -14,7 +14,7 @@
 
 /* header css */
 .header-nav{
-    background-image: url("./images/header-3.jpg");
+    background-image: url("../data/images/header-3.jpg");
     /*background-size: contain;*/
     /*background-color: antiquewhite;*/
     /*right:5%;*/
@@ -79,7 +79,7 @@
 
 .tag{
     padding: 100px;
-    margin: 100px;
+    margin: 10px;
     font-family: 'cwTeXYen', Times, serif;
     z-index: 0;
     border-style: dotted;
@@ -125,6 +125,12 @@
 .confirm_description{
     margin-top: 30px;
     font-size: large;
+}
+
+.enter_add_note{
+    position:fixed;
+    top:90%;
+    right: 50px;
 }
 
 .modal_texttitle{

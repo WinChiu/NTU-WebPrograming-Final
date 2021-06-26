@@ -3,9 +3,9 @@ import About from "./components/About";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Account from "./components/Account";
-import Header from "./note/Header";
-import Note from "./note/Note_index";
-import AddNote from "./note/AddNote";
+//import Header from "./components/note/Header";
+import Note from "./components/note/Note_index";
+import AddNote from "./components/note/AddNote3";
 import { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -21,7 +21,6 @@ function App() {
           <About />
         </Route>
         <Route path="/note">
-          <Header />
           <Note />
         </Route>
         <Route path="/about">
@@ -32,6 +31,9 @@ function App() {
         </Route>
         <Route path="/account">
           <Account />
+        </Route>
+        <Route path="/upload/note">
+          <AddNote/>
         </Route>
       </Switch>
     </Router>
