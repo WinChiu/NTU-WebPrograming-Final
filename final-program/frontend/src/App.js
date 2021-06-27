@@ -4,7 +4,6 @@ import AccountPage from "./pages/AccountPage";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Account from "./components/Account";
-import Header from "./components/note/Header";
 import Note from "./components/note/Note_index";
 import AddNote from "./components/note/AddNote";
 import { useState, useEffect } from "react";
@@ -30,10 +29,12 @@ function App() {
         <Route exact path="/">
           <AboutPage />
         </Route>
-        {/* <Route path="/note">
-          <Header />
+        <Route path="/note">
           <Note />
-        </Route> */}
+        </Route>
+        <Route path="/note/upload">
+          <AddNote />
+        </Route>
         <Route path="/about">
           <AboutPage />
         </Route>

@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import dotenv_defaults from "dotenv-defaults";
 import loginRoute from "./routes/login.js";
 import accountRoute from "./routes/account.js";
-import uploadnoteRoutes from "./routes/note";
+import noteRoutes from "./routes/note";
 
 dotenv_defaults.config();
 
@@ -15,7 +15,9 @@ app.use(cors());
 // app.use(express.json());
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
-app.use("/note/upload", uploadnoteRoutes);
+// should according to the url of axios in frontends
+app.use("/note/upload", noteRoutes);
+app.use("/note", noteRoutes);
 app.use("/login", loginRoute);
 app.use("/account", accountRoute);
 
@@ -37,16 +39,15 @@ mongoose
   });
 mongoose.set("useFindAndModify", false);
 
-// import mongo from './mongo';
+
+//import mongo from './mongo';
 // import express from 'express';
 // import cors from 'cors';
-//import routes from './routes';
 
 // gotta load in MONGO_URL before `mongo.connect()`
 
-//app.use('/', routes);
 
-// mongo.connect();
+//mongo.connect();
 
 // const server = app.listen(process.env.PORT || 4000, function () {
 //   console.log('Listening on port ' + server.address().port);

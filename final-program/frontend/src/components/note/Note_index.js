@@ -9,8 +9,7 @@ import Note from "./Note"
 
 //The fake data for test
 import notes_fake from "../../data/notes.js"
-import searchbackground from "../../data/images/search-background.jpg";
-import { getItems } from '../../api/addnote';
+import { getItems } from '../../api/note';
 
 //package
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -19,7 +18,7 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import  {Button,  Form,Tooltip,Typography,Input,Select} from 'antd';
+import  {Button} from 'antd';
  
 
 const BootstrapInput = withStyles((theme) => ({
@@ -121,7 +120,7 @@ const NoteIndex = () =>{
           )
         )
     }
-
+    
     useEffect(() => {
 	    const fetchData = async () => {
 	      const result = await getItems();
@@ -132,7 +131,7 @@ const NoteIndex = () =>{
 	    }
 	    fetchData()
 	  }, [])
-
+    
     /* test for fake data
     useEffect(() => {
       setNotes(notes_fake);
@@ -191,62 +190,6 @@ const NoteIndex = () =>{
         <section id="note">
         <div className="search">
         <div className="form">
-        {/*
-        <Form
-
-        labelCol={{
-          span: 40,
-          size:"large"
-        }}
-        wrapperCol={{
-          span: 2,
-        }}
-        // inline 放不下
-        layout="vertical"
-        initialValues={{
-          size: componentSize,
-        }}
-        size={componentSize}
-        >*/}
-        {//<Form.Item label="年級">
-        }
-        {/*
-          <Select size="large">
-            <Select.Option value={"小一"}>小一</Select.Option>
-            <Select.Option value={"小二"}>小二</Select.Option>
-            <Select.Option value={"小三"}>小三</Select.Option>
-            <Select.Option value={"小四"}>小四</Select.Option>
-            <Select.Option value={"小五"}>小五</Select.Option>
-            <Select.Option value={"小六"}>小六</Select.Option>
-            <Select.Option value={"國一"}>國一</Select.Option>
-            <Select.Option value={"國二"}>國二</Select.Option>
-            <Select.Option value={"國三"}>國三</Select.Option>
-            <Select.Option value={"高一"}>高一</Select.Option>
-            <Select.Option value={"高二"}>高二</Select.Option>
-            <Select.Option value={"高三"}>高三</Select.Option>
-            <Select.Option value={"其它"}>其它</Select.Option>
-          </Select>
-          <Select>
-            <Select.Option value={"國文"}>國文</Select.Option>
-            <Select.Option value={"英文"}>英文</Select.Option>
-            <Select.Option value={"數學"}>數學</Select.Option>
-            <Select.Option value={"物理"}>物理</Select.Option>
-            <Select.Option value={"化學"}>化學</Select.Option>
-            <Select.Option value={"歷史"}>歷史</Select.Option>
-            <Select.Option value={"地理"}>地理</Select.Option>
-            <Select.Option value={"公民"}>公民</Select.Option>
-            <Select.Option value={"網路服務程式"}>網路服務程式</Select.Option>
-            <Select.Option value={"其它"}>其它</Select.Option>
-          </Select>
-          <Input allowClear={true} maxLength={10} />
-          <Button>Button</Button>
-        <Tooltip title="Useful information">
-            <Typography.Link href="#API">找不到需要的筆記?</Typography.Link>
-        </Tooltip>   
-        </div>   
-        </div> */
-        }
-          
           <FormControl className={BootstrapInput.margin}>
             <InputLabel htmlFor="grade" style={{color: 'white', fontSize:"28px" }}>年級</InputLabel>
             <NativeSelect

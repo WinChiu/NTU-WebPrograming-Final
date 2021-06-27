@@ -17,8 +17,10 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv-defaults": "^2.0.2",
     "express": "^4.17.1",
     "mongoose": "^5.12.14",
-    "dotenv-defaults": "^2.0.2"
+    "routers": "^0.1.4",
+    "v8flags": "^3.2.0"
   }
 }

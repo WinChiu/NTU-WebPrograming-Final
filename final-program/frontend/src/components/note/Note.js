@@ -191,7 +191,8 @@ const Note = (props) =>{
         >
           <span
             className={imgs.imageSrc}
-            style={{
+            style={
+              {
             //backgroundImage: `url(${noteimg})`,
             backgroundImage: `url(${props.note.img})`
             }}

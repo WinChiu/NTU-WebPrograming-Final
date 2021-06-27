@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import ScoreCard from '../models/schema';
 import { getItems,createItem } from './getimage.js';
 
 const router = Router();
