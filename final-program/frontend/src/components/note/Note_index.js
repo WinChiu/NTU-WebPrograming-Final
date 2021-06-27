@@ -1,26 +1,26 @@
 import { React, useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-//import { div, Button } from "react-bootstrap"
+//files
+//css file
 import "../../style/note.css";
+//The component of each note
 import Note from "./Note"
-import { Modal} from 'antd';
-import searchbackground from "./images/search-background.jpg";
+
+//The fake data for test
+import notes_fake from "../../data/notes.js"
+import searchbackground from "../../data/images/search-background.jpg";
+import { getItems } from '../../api/addnote';
+
+//package
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
-import Button from '@material-ui/core/Button';
 import SearchIcon from '@material-ui/icons/Search';
-import SIcon from '@material-ui/icons/Delete';
-import CloudUploadIcon from '@material-ui/icons/CloudUpload';
-import KeyboardVoiceIcon from '@material-ui/icons/KeyboardVoice';
-import Icon from '@material-ui/core/Icon';
-import SaveIcon from '@material-ui/icons/Save';
-import ButtonBase from '@material-ui/core/ButtonBase';
-import Typography from '@material-ui/core/Typography';
+import  {Button,  Form,Tooltip,Typography,Input,Select} from 'antd';
+ 
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -61,6 +61,7 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 
+
 const tagsStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -70,101 +71,25 @@ const tagsStyles = makeStyles((theme) => ({
   },
 }));
 
-const images = [
-  {
-    title: '123英文',
-    grade: "小一",
-    subject: "英文",
-    author: "小白小子",
-    rate: 2.5,
-    price: 100,
-    hassold: 9,
-  },
-  {
-    title: '數學',
-        grade: "小一",
-    subject: "數學",
-    author: "小黑",
-    rate: 2.5,
-    price: 100,
-    hassold: 9,
-    tag: [],
-  },
-  {
-    title: '數學',
-        grade: "小一",
-    subject: "數學",
-    author: "小黃",
-    rate: 4.5,
-    hassold: 9,
-    price: 100,
-  },
-    {
-    title: '物理',
-        grade: "國二",
-    subject: "物理",
-    author: "小藍",
-    rate: 2,
-    hassold: 9,
-    price: 100000,
-  },
-    {
-    title: '網服',
-        grade: "小五",
-    subject: "網路服務程式",
-    author: "小紫",
-    rate: 5,
-    hassold: 9,
-    price: 500,
-  },
-    {
-    title: '數學',
-        grade: "小六",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 9,
-    price: 100,
-  },
-    {
-    title: '國文',
-        grade: "國三",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 97,
-    price: 100,
-  },
-    {
-    title: '歷史',
-    grade: "小二",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 89,
-    price: 100,
-  },
-    {
-    title: '生物',
-    grade: "高三",
-    subject: "英文",
-    author: "小白",
-    rate: 2.5,
-    hassold: 1,
-    price: 100,
-  },
-];
+// the fetch data(all notes in MongoDB) stores globally since we don't want to fetch too many times
+var allnotes = []
 
 
 const NoteIndex = () =>{
-    const classes = tagsStyles();
+    
+    // change after click search button
     const [keyword, setKeyword] = useState('');
     const [grade, setGrade] = useState("");
     const [subject, setSubject] = useState('');
+    
+    // change before click search button but after input something  
     const [tempkeyword, setTempKeyword] = useState("");
     const [tempgrade, setTempgrade] = useState("");
     const [tempsubject, setTempsubject] = useState('');
+
+    // tags of no use now
     const [hottag, setHottag] = useState(["英文","數學","物理","網路服務程式設計"]);
+    
     const [notes, setNotes] = useState([]);
     const handleChange_keyword = (event) => {
         setTempKeyword(event.target.value);
@@ -179,22 +104,41 @@ const NoteIndex = () =>{
     };
 
     const handleClick_search = async ()=>{
-
         setGrade(tempgrade);
         setSubject(tempsubject);
         setKeyword(tempkeyword);
-        //這裡我們需要使用temp來判斷而非上面的state，因為setstate 可能尚未完成就會進行下列程式碼，而await 對setState 不起作用
-        setNotes(images.filter(note=>
-            (note.grade === tempgrade || tempgrade === "") && (note.subject === tempsubject || tempsubject === "") && (note.title.search(tempkeyword)!==-1 || tempkeyword === "")
 
+        console.log(tempgrade)
+
+        console.log(tempsubject)
+        //這裡我們需要使用temp來判斷而非上面的state，因為setstate 可能尚未完成就會進行下列程式碼，而await 對setState 不起作用
+        console.log(allnotes)
+        setNotes(allnotes.filter(note=>{
+            console.log(note.grade)
+            console.log(note.subject)
+            return (note.grade === tempgrade || tempgrade === "") && (note.subject === tempsubject || tempsubject === "") && (note.title.search(tempkeyword)!==-1 || tempkeyword === "")
+            }
           )
         )
     }
 
     useEffect(() => {
-      setNotes(images);
-    }, []);
+	    const fetchData = async () => {
+	      const result = await getItems();
+	      console.log('fetch data:', result)
+	      setNotes(result)
+        allnotes = result
+        console.log(allnotes)
+	    }
+	    fetchData()
+	  }, [])
 
+    /* test for fake data
+    useEffect(() => {
+      setNotes(notes_fake);
+    }, []);
+    */
+    
     const cp_rate= (a,b) =>{
         if (a.rate < b.rate)
           return 1
@@ -237,10 +181,72 @@ const NoteIndex = () =>{
       setNotes([...notes].sort(cp_price))
       console.log(notes.map(e=>e))
     }
+
+    // form style (for search)
+    const [componentSize, setComponentSize] = useState('default');
+
+
+
     return (
-        <>
-        <div className="search" style={{backgroundImage:`url(${searchbackground})`, backgroundSize:"contain"}}>
+        <section id="note">
+        <div className="search">
         <div className="form">
+        {/*
+        <Form
+
+        labelCol={{
+          span: 40,
+          size:"large"
+        }}
+        wrapperCol={{
+          span: 2,
+        }}
+        // inline 放不下
+        layout="vertical"
+        initialValues={{
+          size: componentSize,
+        }}
+        size={componentSize}
+        >*/}
+        {//<Form.Item label="年級">
+        }
+        {/*
+          <Select size="large">
+            <Select.Option value={"小一"}>小一</Select.Option>
+            <Select.Option value={"小二"}>小二</Select.Option>
+            <Select.Option value={"小三"}>小三</Select.Option>
+            <Select.Option value={"小四"}>小四</Select.Option>
+            <Select.Option value={"小五"}>小五</Select.Option>
+            <Select.Option value={"小六"}>小六</Select.Option>
+            <Select.Option value={"國一"}>國一</Select.Option>
+            <Select.Option value={"國二"}>國二</Select.Option>
+            <Select.Option value={"國三"}>國三</Select.Option>
+            <Select.Option value={"高一"}>高一</Select.Option>
+            <Select.Option value={"高二"}>高二</Select.Option>
+            <Select.Option value={"高三"}>高三</Select.Option>
+            <Select.Option value={"其它"}>其它</Select.Option>
+          </Select>
+          <Select>
+            <Select.Option value={"國文"}>國文</Select.Option>
+            <Select.Option value={"英文"}>英文</Select.Option>
+            <Select.Option value={"數學"}>數學</Select.Option>
+            <Select.Option value={"物理"}>物理</Select.Option>
+            <Select.Option value={"化學"}>化學</Select.Option>
+            <Select.Option value={"歷史"}>歷史</Select.Option>
+            <Select.Option value={"地理"}>地理</Select.Option>
+            <Select.Option value={"公民"}>公民</Select.Option>
+            <Select.Option value={"網路服務程式"}>網路服務程式</Select.Option>
+            <Select.Option value={"其它"}>其它</Select.Option>
+          </Select>
+          <Input allowClear={true} maxLength={10} />
+          <Button>Button</Button>
+        <Tooltip title="Useful information">
+            <Typography.Link href="#API">找不到需要的筆記?</Typography.Link>
+        </Tooltip>   
+        </div>   
+        </div> */
+        }
+          
           <FormControl className={BootstrapInput.margin}>
             <InputLabel htmlFor="grade" style={{color: 'white', fontSize:"28px" }}>年級</InputLabel>
             <NativeSelect
@@ -289,7 +295,6 @@ const NoteIndex = () =>{
             <InputLabel htmlFor="keyword"  style={{ color: 'black', fontSize:"28px" ,visibility:"visible"}}>關鍵字</InputLabel>
             <BootstrapInput id="keyword" onChange={handleChange_keyword} placeholder="關鍵字"/>
         </FormControl>
-        </div>
         <Button
         variant="contained"
         color="primary"
@@ -299,82 +304,52 @@ const NoteIndex = () =>{
         >
             搜尋筆記
         </Button>
+        </div>
 
         </div>
+        
         <div className="tags" >
-            <div className="tagtype" id="tagtype1"> 熱門標籤{"  "}
-            {/* TOFIX
-            hottag.map((e,index)=>{
-                <div>e</div>
-            })*/
-            }
-            {/*borderRadius無效*/}
-            <Button variant="contained" className="tag">英文</Button>
+            <div className="tagtype" id="tagtype1"> 熱門標籤(目前無效，不知道標籤要放甚麼){"  "}
+
+            
+            <Button type="primary" className="tag" >英文</Button>
             {" "}
-            <Button variant="contained" className="tag">數學</Button>
+            <Button type="primary" className="tag">數學</Button>
             {" "}
-            <Button variant="contained" className="tag">網路服務程式設計</Button>
+            <Button type="primary" className="tag">網路服務程式設計</Button>
 
             </div>
             <div className="tagtype" id="tagtype2">  {" 排序方式 "}
-            <Button variant="contained" className="tag" onClick={handleClick_sort_by_rate}>評分從高到低</Button>
+            <Button type="primary" className="tag" onClick={handleClick_sort_by_rate}>評分從高到低</Button>
             {" "}
-            <Button variant="contained" className="tag" onClick={handleClick_sort_by_hassold}>觀看數從高到低</Button>
+            <Button type="primary" className="tag" onClick={handleClick_sort_by_hassold}>觀看數從高到低</Button>
             {" "}
-            <Button variant="contained" className="tag" onClick={handleClick_sort_by_price}>價格從低到高</Button>
+            <Button type="primary" className="tag" onClick={handleClick_sort_by_price}>價格從低到高</Button>
 
             </div>
         </div>
         <div className="notes">
-        {/*subject === ""
-        ?
-        grade === ""
-          ? // 不指定科目與年級
-          notes.map((note,index)=>(
-            <>
-            <Note note={note} key={index}/>
-            <div></div>
-            </>
-          ))
-          : // 只指定年級
-          notes.map((note,index)=>(
-            note.grade === grade
-              ?
-              <Note note={note} key={index}/>
-              :
-              <div></div>
-          ))
-        :
-        grade === ""
-          ?// 只指定科目
-          notes.map((note,index)=>(
-              note.subject === subject
-              ?
-              <Note note={note} key={index}/>
-              :
-              <div></div>
-          ))
-          ://指定科目與年級d
-          notes.map((note,index)=>(
-              note.subject === subject && note.grade === grade
-              ?
-              <Note note={note} key={index}/>
-              :<div></div>
-          ))
-
-         */}
           {notes.map((note,index)=>(
 
             <Note note={note} key={index}/>
           ))}
         </div>
 
+        <div className="enter_add_note">
+            <Link to="./upload/note">
+              <Button type="primary" shape="round">販賣你自己的筆記!</Button>
+            </Link>
+        </div>
+        
+        
         {/*only for test scrolling*/}
-
+        {/*
         <div className="test">
             1
         </div>
-        </>
+        */
+        }
+        </section>
       );
   }
 

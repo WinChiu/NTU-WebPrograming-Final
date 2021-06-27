@@ -13,6 +13,8 @@ const memberSchema = new Schema({
   money: { type: Number, require: true },
   reservation: { type: [mongoose.Types.ObjectId], ref: "Reservation" },
 });
+
+
 const reservationSchema = new Schema({
   title: { type: String, require: true },
   student: { type: mongoose.Types.ObjectId, ref: "Member" },
@@ -21,6 +23,8 @@ const reservationSchema = new Schema({
   location: { type: String, require: true },
   status: { type: String, require: true },
 });
+
+
 const noteSchema = new Schema({
   title: { type: String, require: true },
   grade: { type: String, require: true },
@@ -32,6 +36,8 @@ const noteSchema = new Schema({
   imgUrl: { type: [String] },
   description: { type: String, require: true },
 });
+
+
 const activitySchema = new Schema({
   title: { type: String, require: true },
   status: { type: String, require: true },
