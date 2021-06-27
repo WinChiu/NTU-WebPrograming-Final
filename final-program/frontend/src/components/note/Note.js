@@ -3,7 +3,7 @@ import "../../style/note.css";
 import noteimg from "../../data/images/test.jpg"
 //使用所有antd都需引入CSS
 import 'antd/dist/antd.css';
-import { Rate , Modal, Image , message} from 'antd';
+import { Rate , Modal, Image , message,Button} from 'antd';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -192,8 +192,8 @@ const Note = (props) =>{
           <span
             className={imgs.imageSrc}
             style={{
-            backgroundImage: `url(${noteimg})`,
-             //backgroundImage: `url(${props.note.url})`,
+            //backgroundImage: `url(${noteimg})`,
+            backgroundImage: `url(${props.note.img})`
             }}
           />
           <span className={imgs.imageBackdrop} />
@@ -242,7 +242,7 @@ const Note = (props) =>{
             ?
               <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
             :
-              "還沒有評論喔~"
+              "此筆記還沒有評論喔~"
             }
           </span>
         </ButtonBase>
@@ -299,6 +299,14 @@ const Note = (props) =>{
                   "還沒有評論喔~"
               }
             </span>
+            {props.note.pdffile
+            // 以筆記名稱為檔名下載 pdf
+            ?
+            <Button><a download={`${props.note.title}.pdf`} href={props.note.pdffile}>下載</a></Button>
+            :
+            <></>
+            }
+            
           </div>
             </div>
           <p className="confirm_description">

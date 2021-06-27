@@ -1,8 +1,13 @@
 import { React, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 //files
+//css file
 import "../../style/note.css";
+//The component of each note
 import Note from "./Note"
+
+//The fake data for test
 import notes_fake from "../../data/notes.js"
 import searchbackground from "../../data/images/search-background.jpg";
 import { getItems } from '../../api/addnote';
@@ -14,7 +19,7 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import  {Button} from 'antd';
+import  {Button,  Form,Tooltip,Typography,Input,Select} from 'antd';
  
 
 const BootstrapInput = withStyles((theme) => ({
@@ -56,6 +61,7 @@ const BootstrapInput = withStyles((theme) => ({
 }))(InputBase);
 
 
+
 const tagsStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -65,17 +71,25 @@ const tagsStyles = makeStyles((theme) => ({
   },
 }));
 
+// the fetch data(all notes in MongoDB) stores globally since we don't want to fetch too many times
+var allnotes = []
 
 
 const NoteIndex = () =>{
-    const classes = tagsStyles();
+    
+    // change after click search button
     const [keyword, setKeyword] = useState('');
     const [grade, setGrade] = useState("");
     const [subject, setSubject] = useState('');
+    
+    // change before click search button but after input something  
     const [tempkeyword, setTempKeyword] = useState("");
     const [tempgrade, setTempgrade] = useState("");
     const [tempsubject, setTempsubject] = useState('');
+
+    // tags of no use now
     const [hottag, setHottag] = useState(["英文","數學","物理","網路服務程式設計"]);
+    
     const [notes, setNotes] = useState([]);
     const handleChange_keyword = (event) => {
         setTempKeyword(event.target.value);
@@ -93,8 +107,15 @@ const NoteIndex = () =>{
         setGrade(tempgrade);
         setSubject(tempsubject);
         setKeyword(tempkeyword);
+
+        console.log(tempgrade)
+
+        console.log(tempsubject)
         //這裡我們需要使用temp來判斷而非上面的state，因為setstate 可能尚未完成就會進行下列程式碼，而await 對setState 不起作用
-        setNotes(notes_fake.filter(note=>{
+        console.log(allnotes)
+        setNotes(allnotes.filter(note=>{
+            console.log(note.grade)
+            console.log(note.subject)
             return (note.grade === tempgrade || tempgrade === "") && (note.subject === tempsubject || tempsubject === "") && (note.title.search(tempkeyword)!==-1 || tempkeyword === "")
             }
           )
@@ -106,14 +127,18 @@ const NoteIndex = () =>{
 	      const result = await getItems();
 	      console.log('fetch data:', result)
 	      setNotes(result)
+        allnotes = result
+        console.log(allnotes)
 	    }
 	    fetchData()
 	  }, [])
-    /*
+
+    /* test for fake data
     useEffect(() => {
       setNotes(notes_fake);
     }, []);
     */
+    
     const cp_rate= (a,b) =>{
         if (a.rate < b.rate)
           return 1
@@ -156,10 +181,72 @@ const NoteIndex = () =>{
       setNotes([...notes].sort(cp_price))
       console.log(notes.map(e=>e))
     }
+
+    // form style (for search)
+    const [componentSize, setComponentSize] = useState('default');
+
+
+
     return (
         <section id="note">
-        <div className="search" style={{backgroundImage:`url(${searchbackground})`, backgroundSize:"contain"}}>
+        <div className="search">
         <div className="form">
+        {/*
+        <Form
+
+        labelCol={{
+          span: 40,
+          size:"large"
+        }}
+        wrapperCol={{
+          span: 2,
+        }}
+        // inline 放不下
+        layout="vertical"
+        initialValues={{
+          size: componentSize,
+        }}
+        size={componentSize}
+        >*/}
+        {//<Form.Item label="年級">
+        }
+        {/*
+          <Select size="large">
+            <Select.Option value={"小一"}>小一</Select.Option>
+            <Select.Option value={"小二"}>小二</Select.Option>
+            <Select.Option value={"小三"}>小三</Select.Option>
+            <Select.Option value={"小四"}>小四</Select.Option>
+            <Select.Option value={"小五"}>小五</Select.Option>
+            <Select.Option value={"小六"}>小六</Select.Option>
+            <Select.Option value={"國一"}>國一</Select.Option>
+            <Select.Option value={"國二"}>國二</Select.Option>
+            <Select.Option value={"國三"}>國三</Select.Option>
+            <Select.Option value={"高一"}>高一</Select.Option>
+            <Select.Option value={"高二"}>高二</Select.Option>
+            <Select.Option value={"高三"}>高三</Select.Option>
+            <Select.Option value={"其它"}>其它</Select.Option>
+          </Select>
+          <Select>
+            <Select.Option value={"國文"}>國文</Select.Option>
+            <Select.Option value={"英文"}>英文</Select.Option>
+            <Select.Option value={"數學"}>數學</Select.Option>
+            <Select.Option value={"物理"}>物理</Select.Option>
+            <Select.Option value={"化學"}>化學</Select.Option>
+            <Select.Option value={"歷史"}>歷史</Select.Option>
+            <Select.Option value={"地理"}>地理</Select.Option>
+            <Select.Option value={"公民"}>公民</Select.Option>
+            <Select.Option value={"網路服務程式"}>網路服務程式</Select.Option>
+            <Select.Option value={"其它"}>其它</Select.Option>
+          </Select>
+          <Input allowClear={true} maxLength={10} />
+          <Button>Button</Button>
+        <Tooltip title="Useful information">
+            <Typography.Link href="#API">找不到需要的筆記?</Typography.Link>
+        </Tooltip>   
+        </div>   
+        </div> */
+        }
+          
           <FormControl className={BootstrapInput.margin}>
             <InputLabel htmlFor="grade" style={{color: 'white', fontSize:"28px" }}>年級</InputLabel>
             <NativeSelect
@@ -208,7 +295,6 @@ const NoteIndex = () =>{
             <InputLabel htmlFor="keyword"  style={{ color: 'black', fontSize:"28px" ,visibility:"visible"}}>關鍵字</InputLabel>
             <BootstrapInput id="keyword" onChange={handleChange_keyword} placeholder="關鍵字"/>
         </FormControl>
-        </div>
         <Button
         variant="contained"
         color="primary"
@@ -218,17 +304,15 @@ const NoteIndex = () =>{
         >
             搜尋筆記
         </Button>
+        </div>
 
         </div>
+        
         <div className="tags" >
             <div className="tagtype" id="tagtype1"> 熱門標籤(目前無效，不知道標籤要放甚麼){"  "}
-            {/* TOFIX
-            hottag.map((e,index)=>{
-                <div>e</div>
-            })*/
-            }
-            {/*borderRadius無效*/}
-            <Button type="primary" className="tag">英文</Button>
+
+            
+            <Button type="primary" className="tag" >英文</Button>
             {" "}
             <Button type="primary" className="tag">數學</Button>
             {" "}

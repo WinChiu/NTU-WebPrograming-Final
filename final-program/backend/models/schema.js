@@ -14,6 +14,7 @@ const noteSchema = new Schema({
   //img: { type: [String] },
   img: { type: String },
   description: { type: String, require: true },
+  pdffile:"",
 });
 
 
