@@ -14,7 +14,6 @@ const memberSchema = new Schema({
   reservation: { type: [mongoose.Types.ObjectId], ref: "Reservation" },
 });
 
-
 const reservationSchema = new Schema({
   title: { type: String, require: true },
   student: { type: mongoose.Types.ObjectId, ref: "Member" },
@@ -24,7 +23,6 @@ const reservationSchema = new Schema({
   status: { type: String, require: true },
 });
 
-
 const noteSchema = new Schema({
   title: { type: String, require: true },
   grade: { type: String, require: true },
@@ -32,11 +30,14 @@ const noteSchema = new Schema({
   author: { type: mongoose.Types.ObjectId, ref: "Member" },
   rate: { type: Number, require: true },
   price: { type: Number, require: true },
-  isSold: { type: Boolean, require: true },
-  imgUrl: { type: [String] },
+  // isSold
+  hassold: { type: Boolean, require: true },
+  // imgUrl: { type: [String] },
+  img: { type: String },
   description: { type: String, require: true },
+  pdffile: { type: String, require: true },
+  pdffile_preview: { type: String },
 });
-
 
 const activitySchema = new Schema({
   title: { type: String, require: true },
@@ -48,5 +49,5 @@ const activitySchema = new Schema({
 
 export const MemberModel = mongoose.model("Member", memberSchema);
 export const ReservationModel = mongoose.model("Reservation", reservationSchema);
-export const NoteModel = mongoose.model("Note", noteSchema);
+export const noteModel = mongoose.model("Note", noteSchema);
 export const ActivityModel = mongoose.model("Activity", activitySchema);
