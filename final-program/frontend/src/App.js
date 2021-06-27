@@ -23,7 +23,6 @@ function App() {
   localStorage.setItem(LOCALSTORAGE_LOGIN_STATUS, isLogin);
   localStorage.setItem(LOCALSTORAGE_LOGIN_MEMBER, memberName);
 
-
   return (
     <Router>
       <Navbar memberName={memberName} isLogin={isLogin} setIsLogin={setIsLogin} setMemberName={setMemberName} />
