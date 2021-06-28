@@ -1,5 +1,5 @@
 * {
-  // border: 1px solid black;
+  //border: 1px solid black;
   font-family: "Source Sans", "Source Han Serif TC";
 }
 body {
@@ -36,11 +36,9 @@ h4 {
 h5 {
   @include font(normal, bold, 20px, 125%);
 }
-
 p.body1 {
   @include font(normal, normal, 16px, 140%);
 }
-
 nav {
   @include size(100%, 64px);
   display: flex;
@@ -52,7 +50,7 @@ nav {
   background-color: white;
 
   .logo {
-    margin-left: 96px;
+    margin-left: 48px;
   }
   .tags {
     display: flex;
@@ -71,10 +69,16 @@ nav {
       margin-left: 12px;
     }
   }
+  @media only screen and (max-width: 768px) {
+    .logo {
+      object-fit: cover;
+    }
+  }
 }
 
 //About page
 #about {
+  width: 100%;
   .about-header {
     position: relative;
     width: 100%;
@@ -85,14 +89,18 @@ nav {
     flex-direction: column;
     box-sizing: border-box;
     padding-top: 64px;
-    //background-color: grey;
+
     color: white;
     overflow: hidden;
     background-image: url("https://images.unsplash.com/photo-1510146758428-e5e4b17b8b6a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80");
     @include imgCenter;
     h1,
     h3 {
+      color: white;
       z-index: 2;
+    }
+    h3 {
+      padding: 0px 24px;
     }
     &::before {
       content: "";
@@ -112,7 +120,9 @@ nav {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    flex-wrap: wrap;
     .school-logo {
+      margin: 24px 24px;
       max-height: 60px;
     }
   }
@@ -169,7 +179,6 @@ nav {
           }
           .member-description {
             max-height: 100%;
-
             box-sizing: border-box;
             padding-left: 48px;
             display: flex;
@@ -183,6 +192,50 @@ nav {
               margin-bottom: 0;
             }
           }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 992px) {
+    .logo-container {
+      padding: 10vh 0vh;
+    }
+    .team-intro {
+      .intro-content-container {
+        margin-bottom: 48px;
+      }
+      .members {
+        flex-direction: column;
+        .member-column {
+          @include size(100%, 100%);
+          .member-data {
+            margin-bottom: 32px;
+            .member-description {
+              padding-left: 24px;
+            }
+          }
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .found-purpose {
+      height: 80vh;
+      flex-direction: column-reverse;
+      .purpose-container {
+        @include size(calc(100%), calc(40%));
+        padding-left: calc(100% * 1 / 12);
+        padding-right: calc(100% * 1 / 12);
+      }
+      .purposeImg {
+        @include size(calc(100%), calc(60%));
+      }
+    }
+    .team-intro {
+      padding: 0px 24px;
+      .intro-content-container {
+        p {
+          width: 100%;
         }
       }
     }
@@ -204,6 +257,7 @@ nav {
     height: 60vh;
     border-radius: 5%;
     box-shadow: 3px 3px 10px 1px rgba(0, 0, 0, 0.2);
+
     .login-form {
       width: 80%;
     }
@@ -258,6 +312,11 @@ nav {
         margin: 0;
         margin-bottom: 12px;
       }
+    }
+  }
+  @media only screen and (max-width: 414px) {
+    .login-container {
+      margin: auto 24px;
     }
   }
 }

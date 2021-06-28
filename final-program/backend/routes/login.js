@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import express from "express";
 import { MemberModel } from "../models/schema.js";
-import { NoteModel } from "../models/schema.js";
+import { noteModel } from "../models/schema.js";
 const router = express.Router();
 
 router.post("/login_account", async (req, res) => {

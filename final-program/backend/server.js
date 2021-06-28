@@ -4,7 +4,7 @@ import mongoose from "mongoose";
 import dotenv_defaults from "dotenv-defaults";
 import loginRoute from "./routes/login.js";
 import accountRoute from "./routes/account.js";
-import uploadnoteRoutes from "./routes/note";
+import  uploadnoteRoutes  from "./routes/note.js";
 
 dotenv_defaults.config();
 

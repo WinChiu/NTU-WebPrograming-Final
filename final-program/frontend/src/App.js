@@ -4,9 +4,9 @@ import AccountPage from "./pages/AccountPage";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Account from "./components/Account";
-import Header from "./components/note/Header";
+// import Header from "./components/note/Header";
 import Note from "./components/note/Note_index";
-import AddNote from "./components/note/AddNote";
+import AddNote from "./components/note/AddNote3";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
