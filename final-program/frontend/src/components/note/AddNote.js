@@ -82,6 +82,13 @@ function AddNote({memberName}) {
 	  position: "absolute",
 	  backgroundColor:"white",
 	}
+	const handleFinish = () => {
+
+	}
+
+	const handleFinishFail = (error) => {
+		console.log(error)
+	}
 
 	return (
 	<div className="addNote" style={style}>
@@ -96,11 +103,13 @@ function AddNote({memberName}) {
              }}
              layout="vertical"
              size={"large"}
+	     onFinish={handleFinish}
+	     onFinishFailed={handleFinishFail}
        	   >
-		<Form.Item name="筆記名稱" label="筆記名稱" wrapperCol={{ span: 700}} rules={[{required: true}]}>
+		<Form.Item name="筆記名稱" label="筆記名稱" wrapperCol={{ span: 700}} rules={[{required: true,message:"筆記名稱不可為空"}]}>
 			<Input allowClear={true} maxLength={15} onChange={e => setItem({...item,title:e.target.value})}/>
 	        </Form.Item>  
-		<Form.Item name="年級" label="年級" wrapperCol={{ span: 400}} rules={[{required: true}]}>
+		<Form.Item name="年級" label="年級" wrapperCol={{ span: 400}} rules={[{required: true,message:"筆記年級不可為空"}]}>
   		       <Select placeholder={"年級"} onChange={value => setItem({ ...item, grade: value })}>
  		           <Select.Option value={"小一"}>小一</Select.Option>
  		           <Select.Option value={"小二"}>小二</Select.Option>
@@ -117,7 +126,7 @@ function AddNote({memberName}) {
  		           <Select.Option value={"其它"}>其它</Select.Option>
  		         </Select>
 	          </Form.Item>
-	          <Form.Item name="科目" label="科目" wrapperCol={{ span: 400}} rules={[{required: true}]}>
+	          <Form.Item name="科目" label="科目" wrapperCol={{ span: 400}} rules={[{required: true,message:"筆記科目不可為空"}]}>
   		        <Select placeholder={"科目"} onChange={value => setItem({ ...item, subject: value })}> 
        		           <Select.Option value={"國文"}>國文</Select.Option>
 		            <Select.Option value={"英文"}>英文</Select.Option>
@@ -131,11 +140,11 @@ function AddNote({memberName}) {
 		            <Select.Option value={"其它"}>其它</Select.Option>
 	                </Select>
 	          </Form.Item>
-        	  <Form.Item name="售價" label="售價" wrapperCol={{ span: 400}} rules={[{required: true}]}>
+        	  <Form.Item name="售價" label="售價" wrapperCol={{ span: 400}} rules={[{required: true,message:"筆記售價不可為空"}]}>
           		<InputNumber onChange={value => setItem({ ...item, price: value })} />
         	  </Form.Item>
 
-		<Form.Item name="介紹一下你的筆記吧" label="介紹一下你的筆記吧" rules={[{required: true}]}>
+		<Form.Item name="介紹一下你的筆記吧" label="介紹一下你的筆記吧" rules={[{required: true,message:"筆記介紹不可為空"}]}>
 	     		<TextArea showCount placeholder={"在此描述你的筆記內容..."} 
 	    			maxLength={100} onChange={e => setItem({ ...item, description: e.target.value })}
 	    		/>
@@ -156,7 +165,7 @@ function AddNote({memberName}) {
 				<></>
 			}	     	
 	           </Form.Item>       
-		  <Form.Item name="筆記檔案(請上傳PDF)" label="筆記檔案(請上傳PDF)" rules={[{required: true}]}>
+		  <Form.Item name="筆記檔案(請上傳PDF)" label="筆記檔案(請上傳PDF)" rules={[{required: true,message:"筆記檔案不可為空"}]}>
 		     <FileBase64
 				type="file"
 	 		    	multiple={false}
@@ -195,7 +204,7 @@ function AddNote({memberName}) {
 		<></>
 		}		
 		<Form.Item >
-		          <Button type="primary" onClick={onSubmitHandler}>提交</Button>
+		          <Button type="primary" onClick={onSubmitHandler} htmlType="submit">提交</Button>
 	        </Form.Item>   
 
       		</Form>
