@@ -30,8 +30,8 @@ const noteSchema = new Schema({
   author: { type: mongoose.Types.ObjectId, ref: "Member" },
   rate: { type: Number, require: true },
   price: { type: Number, require: true },
-  // isSold
-  hassold: { type: Boolean, require: true },
+  // isSold 
+  hassold: { type: Number, require: true },
   // imgUrl: { type: [String] },
   img: { type: String },
   description: { type: String, require: true },

@@ -9,7 +9,12 @@ import Note from "./Note"
 
 //The fake data for test
 import notes_fake from "../../data/notes.js"
+
+
+//The api for fetch/post data from backend
 import { getItems } from '../../api/note';
+import {fetchMemberData} from "../../api/account"
+import {testAddMoney,testResetMoney} from "../../api/account_note"
 
 //package
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -18,7 +23,7 @@ import FormControl from '@material-ui/core/FormControl';
 import NativeSelect from '@material-ui/core/NativeSelect';
 import InputBase from '@material-ui/core/InputBase';
 import SearchIcon from '@material-ui/icons/Search';
-import  {Button} from 'antd';
+import  {Button,message,Spin, Alert} from 'antd';
  
 
 const BootstrapInput = withStyles((theme) => ({
@@ -71,11 +76,15 @@ const tagsStyles = makeStyles((theme) => ({
 }));
 
 // the fetch data(all notes in MongoDB) stores globally since we don't want to fetch too many times
-var allnotes = []
+// var allnotes = []
+// var member = []
 
+//remember the passing parameters is a object consist of all parameters
+const NoteIndex = ({memberName,isLogin}) =>{
+    // the fetch data(all notes in MongoDB) stores globally since we don't want to fetch too many times 
+    const [allnotes,setAllNotes] = useState([]);
+    const [member, setMember] = useState({});
 
-const NoteIndex = () =>{
-    
     // change after click search button
     const [keyword, setKeyword] = useState('');
     const [grade, setGrade] = useState("");
@@ -86,10 +95,16 @@ const NoteIndex = () =>{
     const [tempgrade, setTempgrade] = useState("");
     const [tempsubject, setTempsubject] = useState('');
 
-    // tags of no use now
-    const [hottag, setHottag] = useState(["英文","數學","物理","網路服務程式設計"]);
-    
+    // the notes displayed (filter by search)   
     const [notes, setNotes] = useState([]);
+
+    // the money the member have
+    const [money, setMoney] = useState(-1);
+
+    // the status whether finish fetch data
+    const [finish, setFinish] = useState(false);
+
+
     const handleChange_keyword = (event) => {
         setTempKeyword(event.target.value);
     };
@@ -102,32 +117,39 @@ const NoteIndex = () =>{
         setTempsubject(event.target.value);
     };
 
+
     const handleClick_search = async ()=>{
         setGrade(tempgrade);
         setSubject(tempsubject);
         setKeyword(tempkeyword);
 
-        console.log(tempgrade)
 
-        console.log(tempsubject)
         //這裡我們需要使用temp來判斷而非上面的state，因為setstate 可能尚未完成就會進行下列程式碼，而await 對setState 不起作用
-        console.log(allnotes)
         setNotes(allnotes.filter(note=>{
-            console.log(note.grade)
-            console.log(note.subject)
             return (note.grade === tempgrade || tempgrade === "") && (note.subject === tempsubject || tempsubject === "") && (note.title.search(tempkeyword)!==-1 || tempkeyword === "")
             }
           )
         )
     }
     
+    const handleClick_unLogin = () => {
+      message.warning("要先登入才能開始販賣自己的筆記喔")
+    }
+
     useEffect(() => {
 	    const fetchData = async () => {
 	      const result = await getItems();
-	      console.log('fetch data:', result)
+	      console.log('fetch note:', result)
 	      setNotes(result)
-        allnotes = result
-        console.log(allnotes)
+        let member_temp
+        if(isLogin){
+          member_temp = await fetchMemberData(memberName);
+          setMember(member_temp)
+          console.log("fetch member:" , member_temp)
+        }
+        setAllNotes(result)
+        setFinish(true)
+        setMoney(member_temp.money)
 	    }
 	    fetchData()
 	  }, [])
@@ -181,9 +203,18 @@ const NoteIndex = () =>{
       console.log(notes.map(e=>e))
     }
 
-    // form style (for search)
-    const [componentSize, setComponentSize] = useState('default');
+    // only for the teacher and TAs test
+    const add_money = async()=>{
+      let newMoney = await testAddMoney(memberName)
+      setMember({...member, money:newMoney})
+      setMoney(newMoney)
+    }
 
+    const reset_money = async()=>{
+      let newMoney = await testResetMoney(memberName)
+      setMember({...member, money:newMoney})
+      setMoney(newMoney)
+    }
 
 
     return (
@@ -211,6 +242,7 @@ const NoteIndex = () =>{
             <option value={"高一"}>高一</option>
             <option value={"高二"}>高二</option>
             <option value={"高三"}>高三</option>
+            <option value={"其它"}>其它</option>
             </NativeSelect>
         </FormControl>
         <FormControl className={BootstrapInput.margin}>
@@ -231,6 +263,7 @@ const NoteIndex = () =>{
             <option value={"地理"}>地理</option>
             <option value={"公民"}>公民</option>
             <option value={"網路服務程式"}>網路服務程式</option>
+            <option value={"其它"}>其它</option>
             </NativeSelect>
         </FormControl>
 
@@ -243,8 +276,7 @@ const NoteIndex = () =>{
         color="primary"
         className="button"
         startIcon={<SearchIcon />}
-        onClick={handleClick_search}
-        >
+        onClick={handleClick_search}>
             搜尋筆記
         </Button>
         </div>
@@ -252,16 +284,6 @@ const NoteIndex = () =>{
         </div>
         
         <div className="tags" >
-            <div className="tagtype" id="tagtype1"> 熱門標籤(目前無效，不知道標籤要放甚麼){"  "}
-
-            
-            <Button type="primary" className="tag" >英文</Button>
-            {" "}
-            <Button type="primary" className="tag">數學</Button>
-            {" "}
-            <Button type="primary" className="tag">網路服務程式設計</Button>
-
-            </div>
             <div className="tagtype" id="tagtype2">  {" 排序方式 "}
             <Button type="primary" className="tag" onClick={handleClick_sort_by_rate}>評分從高到低</Button>
             {" "}
@@ -271,20 +293,62 @@ const NoteIndex = () =>{
 
             </div>
         </div>
+        {
+        finish === true
+        ?
         <div className="notes">
-          {notes.map((note,index)=>(
+          {notes !== undefined
+          ?
+            notes.map((note,index)=>(
 
-            <Note note={note} key={index}/>
-          ))}
+            <Note note={note} key={index} isLogin={isLogin} memberName={memberName} money={money} setMoney={setMoney}/>
+          ))
+          :
+              <></>
+          }
         </div>
-
+        :
+        <div className="loading">
+          <Spin tip="Loading...">
+            <Alert
+              message="加載中..."
+              description="因 相片 及 PDF 檔案較大，請稍後獲取資料..."
+              type="info"
+          />
+          </Spin>
+          <div className="loading-scroll">loading</div>
+        </div>
+        }
         <div className="enter_add_note">
-            <Link to="./upload/note">
+
+          {
+            isLogin !== "notLogin"
+            ?
+            <>
+            {
+            money !== -1
+            ?
+            <div>你擁有的的錢: $ {money}</div>
+            :
+            <div>你擁有的的錢:  <Spin size="small"/></div>
+            }
+            <Link to="/uploadNote">
               <Button type="primary" shape="round">販賣你自己的筆記!</Button>
             </Link>
+            </>
+            :
+             <Button type="primary" shape="round" onClick={handleClick_unLogin}>販賣你自己的筆記!</Button>
+          }
         </div>
-        
-        
+      
+        {/*only for the teacher and TAs test*/}
+        <div className="money">
+          <h6>測試時若錢不夠:</h6>
+          <Button onClick={add_money}>加 500</Button>
+          <Button onClick={reset_money}>重置成 0</Button>
+        </div>
+
+
         {/*only for test scrolling*/}
         {/*
         <div className="test">

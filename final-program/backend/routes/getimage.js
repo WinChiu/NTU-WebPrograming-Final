@@ -11,11 +11,13 @@ export const getItems = async(req,res)=>{
 	}
 
 export const createItem = async(req,res)=>{
+	console.log("test")
 	const item = new noteModel(req.body);
 	try {
 		await item.save();
 		res.status(201).json(item);
 	} 
-		catch (error) {
+	catch (error) {
+		console.log(error)
 	}
 }

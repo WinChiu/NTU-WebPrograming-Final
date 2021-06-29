@@ -59,6 +59,13 @@
     z-index: 0;
 }
 
+.money{
+    bottom:0%;
+    left: 0%;
+    position: fixed;
+}
+
+
 .tagtype{
 
     left:20%;
@@ -103,6 +110,21 @@
     flex-wrap: wrap;
 }
 
+.loading{
+    padding:10px;
+    left:35%;
+    top:90%;
+    position:absolute;
+}
+
+.loading-scroll{
+    top:300%;
+    left:45%;
+    position: absolute;
+    font-size: xx-small;
+    color:white;
+}
+
 .note{
     display: inline;
 
@@ -126,8 +148,21 @@
 }
 
 .confirm_description{
-    margin-top: 30px;
-    font-size: large;
+    margin-top: 10px;
+    font-size: small;
+}
+
+.download-note{
+    position: absolute;
+    bottom: 15%;
+    left:80%;
+
+}
+
+.note-preview{
+    position:absolute;
+    left:50%;
+    bottom: 15%;    
 }
 
 .enter_add_note{
@@ -180,4 +215,10 @@
   top:50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.addNote {
+    top: '20%';
+    left: "20%";
+    position: "absolute";
 }

@@ -2,7 +2,7 @@
 import axios from 'axios';
 
 const geturl = "http://localhost:4000/note"
-const uploadurl = "http://localhost:4000/note/upload"
+const uploadurl = "http://localhost:4000/note"
 
 const getitems = () => axios.get(geturl);
 const createitem = (item) => axios.post(uploadurl,item);
@@ -21,6 +21,7 @@ export const createItem = async(todo)=>{
 	try {
 		console.log (todo)
 		const {data} = await createitem(todo);
+		console.log(data)
 		return data
 	} catch (error) {
 	console.log(error)

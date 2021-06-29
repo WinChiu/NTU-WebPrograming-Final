@@ -4,7 +4,7 @@ import AccountPage from "./pages/AccountPage";
 import Navbar from "./components/Navbar";
 import Login from "./components/Login";
 import Account from "./components/Account";
-import Note from "./components/note/Note_index";
+import Note from "./components/note/NotePage";
 import AddNote from "./components/note/AddNote";
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -30,10 +30,10 @@ function App() {
           <AboutPage />
         </Route>
         <Route path="/note">
-          <Note />
+          <Note memberName={memberName} isLogin={isLogin}/>
         </Route>
-        <Route path="/note/upload">
-          <AddNote />
+        <Route path="/uploadNote">
+          <AddNote memberName={memberName}/>
         </Route>
         <Route path="/about">
           <AboutPage />

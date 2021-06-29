@@ -1,18 +1,28 @@
 import { React, useState, useEffect } from "react";
 import "../../style/note.css";
+
+
+//data
 import noteimg from "../../data/images/test.jpg"
-//使用所有antd都需引入CSS
+
+//api for backend
+import {buyNote,fetchAuthor,checkHaveBuy} from "../../api/account_note"
+
+// package
 import 'antd/dist/antd.css';
 import { Rate , Modal, Image , message,Button} from 'antd';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles} from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
 
+
+// font-family
 <>
 <link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css" rel="stylesheet"></link>
-<link href="https://fonts.googleapis.com/earlyaccess/cwtexyen.css https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet"></link>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet"></link>
 </>
 
+// style for the note button
 const imageStyles = makeStyles((theme) => ({
   root: {
     /*display: 'flex',
@@ -115,62 +125,59 @@ const imageStyles = makeStyles((theme) => ({
 }));
 
 
-/*
-Note = {
-  title: "",
-  grade: 0,
-  subject: "",
-  tag: "",
-  img: "",(應小於16MB)
-}
-
-*/
-
 const Note = (props) =>{
     const imgs = imageStyles();
-    const [notetitle, setNotetitle] = useState('');
-    const [notegrade, setNotegrade] = useState(-1);
-    const [notesubject, setNotesubject] = useState('');
-    const [notetag, setNotetag] = useState(["英文","數學","物理","網路服務程式設計"]);
+    const [hassold,setHasSold] = useState(-1);
     const [modal,setModal] = useState(false);
-    //const [noteimg, setNoteimg] = useState({});
-
+    const [author, setAuthor] = useState("");
+    const [haveBuy, setHaveBuy] = useState("");
+    
     const showModal = () => {
       setModal(true);
     };
 
-    const handleOk = () => {
-      setModal(false);
-      message.success('購買成功');
+    const handleBuy = async() => {
+      if (props.isLogin !== "notLogin"){
+        if(props.money < props.note.price){
+          message.error("您的剩餘金錢不夠喔~")
+        }
+        else {
+          let msg = await buyNote(props.memberName,props.note.title)
+          setModal(false);
+          props.setMoney(props.money - props.note.price)
+          console.log(props.money - props.note.price)
+          console.log(msg)
+          setHasSold(hassold + 1)
+          setHaveBuy("buy")
+          message.success('購買成功');
+        }
+      }
+      else 
+        message.warning("請先登入後再購買")
     };
+
+    const handleDownload = () => {
+      //
+      window.open(`${props.note.title}.pdf`)
+    }
 
     const handleCancel = () => {
       setModal(false);
     };
 
+    const handleUnLogin = () => {
+        message.warning("需要先登入才可購買")
+    }
 
 
-    const handleChange_title = (event) => {
-        setNotetitle(event.target.value);
-    };
 
-    const handleChange_grade = (event) => {
-        setNotegrade(event.target.value);
-    };
-
-    const handleChange_subject = (event) => {
-        setNotesubject(event.target.value);
-    };
-
-
-    useEffect(() => {
-      setNotegrade(props.note.grade);
-      setNotesubject(props.note.subject);
-      setNotetitle(props.note.title);
-      setNotetag(props.note.tag);
-      //console.log(props.note.rate)
-      //console.log(typeof(props.note.rate))
-      //setNoteimg(props.note.img);
+    useEffect( async () => {
+      if(props.note.author){
+        let temp = await fetchAuthor(props.note.author)
+        setAuthor(temp);
+      }
+      setHasSold(props.note.hassold);
+      setHaveBuy(await checkHaveBuy(props.note._id,props.memberName))
     }, []);
 
 
@@ -182,8 +189,6 @@ const Note = (props) =>{
           className={imgs.image}
           focusVisibleClassName={imgs.focusVisible}
           style={{
-            /*TOFIX*/
-            /*width: props.note.width,*/
             width: "150px",
           }
           }
@@ -192,10 +197,16 @@ const Note = (props) =>{
           <span
             className={imgs.imageSrc}
             style={
+              props.note.img === ""
+              ?    
               {
-            //backgroundImage: `url(${noteimg})`,
-            backgroundImage: `url(${props.note.img})`
-            }}
+                backgroundImage: `url(${noteimg})`,
+              }
+              :
+              {
+                backgroundImage: `url(${props.note.img})`
+              }
+            }
           />
           <span className={imgs.imageBackdrop} />
           <span className={imgs.imageButton}>
@@ -215,14 +226,12 @@ const Note = (props) =>{
             </div>
             <div className={imgs.textauthor}>
             {
-            /*
-            props.note.author.length >= 5
+            author.length >= 5
             ?
-              `作者 : ${props.note.author}`
+              `作者 : ${author}`
             :
-              `作者 : ${props.note.author}
+              `作者 : ${author}
               `
-            */
             }
             </div>
             <div className={imgs.textgrade}>
@@ -232,7 +241,7 @@ const Note = (props) =>{
             {props.note.subject}
             </div>
             <div className={imgs.texthassold}>
-            觀看次數 : {props.note.hassold === false ? "0" : props.note.hassold}
+            觀看次數 : {hassold}
             </div>
             <div className={imgs.textprice}>
             售價 : {props.note.price}
@@ -243,13 +252,12 @@ const Note = (props) =>{
             ?
               <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
             :
-              "此筆記還沒有評論喔~"
+              "此筆記還沒有評價喔~"
             }
           </span>
         </ButtonBase>
-        <Modal title={"購買筆記"} visible={modal} okText="購買" cancelText="取消" width="600px"
-                onOk={handleOk} onCancel={handleCancel} centered={true}
-        >
+          <Modal title={"購買筆記"} visible={modal} okText={"購買"} cancelText="取消" width="600px" height="600px"
+                onOk={handleBuy} okButtonProps={(haveBuy === "own" || haveBuy === "buy")?{disabled:true}:{disabled:false}} onCancel={handleCancel} centered={true}>
           <div className="confirm">
           <div className="confrim_photo">
               <Image.PreviewGroup>
@@ -270,12 +278,12 @@ const Note = (props) =>{
             </p>
             <div className="modal_textauthor">
             {
-            //props.note.author.length >= 5 ?
-            //  
-            //  `作者 : ${props.note.author}`
-            //:
-            //  `作者 : ${props.note.author}
-            //  `
+            author.length >= 5 
+            ?
+              `作者 : ${author}`
+            :
+              `作者 : ${author}
+              `
             }
             </div>
             <div className="modal_textgrade">
@@ -285,8 +293,7 @@ const Note = (props) =>{
             科目 : {props.note.subject}
             </div>
             <div className="modal_texthassold">
-            觀看次數 : {
-              props.note.hassold === false ? "0" : props.note.hassold}
+            觀看次數 : {hassold}
             </div>
             <div className="modal_textprice">
             售價 : {props.note.price}
@@ -297,13 +304,25 @@ const Note = (props) =>{
                 ?
                   <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
                 :
-                  "還沒有評論喔~"
+                  "還沒有評價喔~"
               }
             </span>
-            {props.note.pdffile
-            // 以筆記名稱為檔名下載 pdf
+            {props.note.pdffile_preview
             ?
-            <Button><a download={`${props.note.title}.pdf`} href={props.note.pdffile}>下載</a></Button>
+            <div className="note-preview">
+              <div>此筆記提供試閱</div>
+              <Button type="primary"><a download={`${props.note.title}_preview.pdf`} href={props.note.pdffile_preview}>試閱筆記</a></Button>
+            </div>
+            :
+            <></>
+            }
+            {props.note.pdffile && (haveBuy == "own" || haveBuy == "buy")
+            // if the member has bought the note or he/she is the owner of the note, he/she can download the note
+            ?
+            <div className="download-note">
+            <div>你已擁有此筆記</div>
+            <Button type="primary"><a download={`${props.note.title}.pdf`} href={props.note.pdffile}>下載筆記</a></Button>
+            </div>
             :
             <></>
             }

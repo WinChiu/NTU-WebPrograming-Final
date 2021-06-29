@@ -5,6 +5,7 @@ import dotenv_defaults from "dotenv-defaults";
 import loginRoute from "./routes/login.js";
 import accountRoute from "./routes/account.js";
 import noteRoutes from "./routes/note";
+import account_noteRoute from "./routes/account_note"
 
 dotenv_defaults.config();
 
@@ -16,10 +17,11 @@ app.use(cors());
 app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 // should according to the url of axios in frontends
-app.use("/note/upload", noteRoutes);
+// app.use("/note/upload", noteRoutes);
 app.use("/note", noteRoutes);
 app.use("/login", loginRoute);
 app.use("/account", accountRoute);
+app.use("/note", account_noteRoute)
 
 app.get("/", (req, res) => {
   res.send("Hello World");
