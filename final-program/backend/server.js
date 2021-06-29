@@ -4,8 +4,8 @@ import mongoose from "mongoose";
 import dotenv_defaults from "dotenv-defaults";
 import loginRoute from "./routes/login.js";
 import accountRoute from "./routes/account.js";
-import noteRoutes from "./routes/note";
-import account_noteRoute from "./routes/account_note"
+import noteRoutes from "./routes/note.js";
+import account_noteRoute from "./routes/account_note.js";
 
 dotenv_defaults.config();
 
@@ -21,7 +21,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/note", noteRoutes);
 app.use("/login", loginRoute);
 app.use("/account", accountRoute);
-app.use("/note", account_noteRoute)
+app.use("/note", account_noteRoute);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
@@ -41,13 +41,11 @@ mongoose
   });
 mongoose.set("useFindAndModify", false);
 
-
 //import mongo from './mongo';
 // import express from 'express';
 // import cors from 'cors';
 
 // gotta load in MONGO_URL before `mongo.connect()`
-
 
 //mongo.connect();
 
