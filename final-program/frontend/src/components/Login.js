@@ -85,7 +85,9 @@ function Login({ setIsLogin, setMemberName }) {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
+  const toLoginType = () => {
+    setLoginStage("login type");
+  };
   const login = (
     <div className="login-type login-container">
       <img className="login-logo" src={memberType === "student" ? studentAvatar : mentorAvatar} alt="" />
@@ -130,6 +132,9 @@ function Login({ setIsLogin, setMemberName }) {
         </Form.Item>
 
         <Form.Item {...tailLayout}>
+          <Button type="default" style={{ marginRight: "8px" }} onClick={toLoginType}>
+            上一頁
+          </Button>
           <Button type="primary" htmlType="submit">
             登入
           </Button>
@@ -209,6 +214,9 @@ function Login({ setIsLogin, setMemberName }) {
         </Form.Item>
         <Button type="primary" style={{ float: "right" }} htmlType="submit">
           註冊
+        </Button>
+        <Button type="default" style={{ float: "right", marginRight: "8px" }} onClick={toLoginType}>
+          上一頁
         </Button>
       </Form>
     </div>
