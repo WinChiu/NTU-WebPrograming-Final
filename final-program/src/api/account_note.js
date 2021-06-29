@@ -1,6 +1,7 @@
 import axios from "axios";
 // const instance = axios.create({ baseURL: "http://localhost:4000/note" });
-const instance = axios.create({ baseURL: "https://ntu-webprograming-project.herokuapp.com/note" });
+// const instance = axios.create({ baseURL: "https://ntu-webprograming-project.herokuapp.com/note" });
+const instance = axios.create({ baseURL: "note/" });
 
 //member name and note name
 const buyNote = async (member, note) => {
@@ -35,7 +36,8 @@ const addNote = async (member, note) => {
 
 // for addNote
 // const uploadurl = "http://localhost:4000/note/addNote";
-const uploadurl = "https://ntu-webprograming-project.herokuapp.com/note/addNote";
+// const uploadurl = "https://ntu-webprograming-project.herokuapp.com/note/addNote";
+const uploadurl = "note/addNote/";
 const createitem = (member, title, grade, subject, price, img, description, pdffile, pdffile_preview) =>
   axios.post(uploadurl, { member, title, grade, subject, price, img, description, pdffile, pdffile_preview });
 
