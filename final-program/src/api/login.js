@@ -1,5 +1,6 @@
 import axios from "axios";
-const instance = axios.create({ baseURL: "http://localhost:4000/login" });
+// const instance = axios.create({ baseURL: "http://localhost:4000/login" });
+const instance = axios.create({ baseURL: "https://ntu-webprograming-project.herokuapp.com/login" });
 
 const loginAccount = async (name, password, memberType) => {
   const {
