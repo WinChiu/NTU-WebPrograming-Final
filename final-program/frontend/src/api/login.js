@@ -5,6 +5,7 @@ const loginAccount = async (name, password, memberType) => {
   const {
     data: { msg },
   } = await instance.post("/login_account", null, { params: { name, password, memberType } });
+  return msg;
 };
 
 const registerAccount = async (name, password, memberType, email, money) => {
