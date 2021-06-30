@@ -3,7 +3,6 @@ import FileBase64 from 'react-file-base64';
 
 // api
 import {addNote} from "../../api/account_note"
-import { createItem } from '../../api/note';
 
 //css
 import "../../style/note.css"
@@ -94,10 +93,10 @@ function AddNote({isLogin,memberName}) {
 		pdffile:"",
 		pdffile_preview:"",
 		})
+	  	form.resetFields()	
 	  }
 	  else
 		message.error("筆記名已存在")
-	  //form.resetFields()	
 
 	}
 	

@@ -10,7 +10,7 @@ import {buyNote,fetchAuthor,checkHaveBuy} from "../../api/account_note"
 
 // package
 import 'antd/dist/antd.css';
-import { Rate , Modal, Image , message,Button} from 'antd';
+import { Modal, Image , message,Button} from 'antd';
 import { makeStyles} from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
@@ -255,17 +255,6 @@ const Note = (props) =>{
             售價 : {props.note.price}
             </div>
           </span>
-          {/*
-          <span className={imgs.rate}>
-            {props.note.rate !== -1
-            ?
-              <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
-            :
-              "此筆記還沒有評價喔~"
-            }
-          </span>
-          */
-          }
         </ButtonBase>
           <Modal title={"購買筆記"} visible={modal} okText={"購買"} cancelText="取消" width="600px" height="600px"
                 onOk={handleBuy} okButtonProps={(haveBuy === "own" || haveBuy === "buy")?{disabled:true}:{disabled:false}} onCancel={handleCancel} centered={true}>
@@ -309,30 +298,6 @@ const Note = (props) =>{
             <div className="modal_textprice">
             售價 : {props.note.price}
             </div>
-            {/*
-            <span className="modal_rate">
-              {
-                isLogin !== "notLogin"
-                ?
-                (
-                haveRate === true
-                ?
-                  <>
-                  <div>你已經給予評價</div>
-                  <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
-                  </>
-                :
-                  <>
-                  <div>你還沒有給予評價喔~</div>
-                  <Rate allowHalf={true} allowClear onChange={handleRate}/>
-                  </>
-                )
-                :
-                <></>
-              }
-            </span>
-            */
-            }
             {props.note.pdffile_preview
             ?
             <div className="note-preview">
