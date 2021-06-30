@@ -27,7 +27,7 @@ import { Button, message, Spin, Alert } from "antd";
 const BootstrapInput = withStyles((theme) => ({
   root: {
     "label + &": {
-      marginTop: theme.spacing(3),
+      marginTop: theme.spacing(6.5),
       marginRight: theme.spacing(3),
     },
   },
@@ -60,6 +60,7 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
+/*
 const tagsStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
@@ -68,7 +69,7 @@ const tagsStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
 }));
-
+*/
 // the fetch data(all notes in MongoDB) stores globally since we don't want to fetch too many times
 // var allnotes = []
 // var member = []
@@ -207,12 +208,7 @@ const NoteIndex = ({ memberName, isLogin }) => {
             <InputLabel htmlFor="grade" style={{ color: "white", fontSize: "28px" }}>
               年級
             </InputLabel>
-            <NativeSelect
-              id="grade"
-              value={tempgrade}
-              onChange={handleChange_grade}
-              input={<BootstrapInput placeholder="年級" />}
-            >
+            <NativeSelect id="grade" value={tempgrade} onChange={handleChange_grade} input={<BootstrapInput />}>
               <option aria-label="None" value="" />
               <option value={"小一"}>小一</option>
               <option value={"小二"}>小二</option>
@@ -304,10 +300,15 @@ const NoteIndex = ({ memberName, isLogin }) => {
           )}
         </div>
       ) : (
-        <div className="loading">
-          <Spin tip="Loading...">
-            <Alert message="加載中..." description="因 相片 及 PDF 檔案較大，請稍後獲取資料..." type="info" />
-          </Spin>
+        <div>
+          <div className="loading1">
+            <Spin tip="Loading..." />
+          </div>
+          {/*
+        <div className="loading2">
+            <Alert message="加載中..." description="因檔案較大，請稍候..." type="info" />
+        </div>
+        */}
           <div className="loading-scroll">loading</div>
         </div>
       )}

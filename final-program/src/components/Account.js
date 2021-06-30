@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Table, Tag, Space, Button, List, Typography, Divider, Timeline } from "antd";
-import { Card, Col, Row } from "antd";
+import { Card, Col, Row, Spin } from "antd";
 import { fetchMemberData } from "../api/account";
 import { v4 as uuidv4 } from "uuid";
+import NOTE from "./note/Note";
+
 function Account({ memberName, isLogin }) {
   const { Meta } = Card;
   const { Column, ColumnGroup } = Table;
@@ -12,6 +14,10 @@ function Account({ memberName, isLogin }) {
   const [buyNoteData, setBuyNoteData] = useState([]);
   const [activityRecordData, setActivityRecordData] = useState([]);
   const [reservationRecordData, setReservationRecordData] = useState([]);
+
+  const [money, setMoney] = useState(-1);
+  const [finishBuyNote, setFinishBuyNote] = useState(false);
+  const [finishOwnNote, setFinishOwnNote] = useState(false);
 
   // eslint-disable-next-line no-extend-native
   Date.prototype.format = function (fmt) {
@@ -34,10 +40,11 @@ function Account({ memberName, isLogin }) {
   useEffect(() => {
     const fetchData = async () => {
       const memberDataFetch = await fetchMemberData(memberName);
-
       setMemberData([memberDataFetch.name, memberDataFetch.memberType, memberDataFetch.email, memberDataFetch.money]);
       setOwnNoteData(memberDataFetch.ownNote);
+      setFinishOwnNote(true);
       setBuyNoteData(memberDataFetch.noteBuy);
+      setFinishBuyNote(true);
       setActivityRecordData(memberDataFetch.attendActivity);
       setReservationRecordData(memberDataFetch.reservation);
     };
@@ -119,14 +126,17 @@ function Account({ memberName, isLogin }) {
   );
   const ownNote = (
     <div className="site-card-wrapper">
-      {ownNoteData.map((note, id) => {
-        if (id % 4 === 0) {
-          return (
-            <Row gutter={8} key={uuidv4()}>
-              {ownNoteData.map((note, id2) => {
-                if (id2 >= id && id2 < id + 4) {
-                  return (
-                    <Col span={6} key={uuidv4()}>
+      {finishOwnNote ? (
+        ownNoteData.map((note, id) => {
+          if (id % 4 === 0) {
+            return (
+              <Row gutter={8} key={uuidv4()}>
+                {ownNoteData.map((note, id2) => {
+                  if (id2 >= id && id2 < id + 4) {
+                    return (
+                      <Col span={6} key={uuidv4()}>
+                        <NOTE note={note} isLogin={isLogin} memberName={memberName} money={money} setMoney={setMoney} />
+                        {/*
                       <Card
                         hoverable
                         cover={
@@ -141,27 +151,33 @@ function Account({ memberName, isLogin }) {
                       >
                         <Meta title={`${note.title}`} description={`${note.grade}`} />
                       </Card>
-                    </Col>
-                  );
-                }
-              })}
-            </Row>
-          );
-        }
-      })}
+                      */}
+                      </Col>
+                    );
+                  }
+                })}
+              </Row>
+            );
+          }
+        })
+      ) : (
+        <Spin tip={"loading..."} style={{ position: "absolute", left: "50%", top: "50%" }} />
+      )}
     </div>
   );
-
   const buyNote = (
     <div className="site-card-wrapper">
-      {buyNoteData.map((note, id) => {
-        if (id % 4 === 0) {
-          return (
-            <Row gutter={8} key={uuidv4()}>
-              {buyNoteData.map((note, id2) => {
-                if (id2 >= id && id2 < id + 4) {
-                  return (
-                    <Col span={6} key={uuidv4()}>
+      {finishBuyNote ? (
+        buyNoteData.map((note, id) => {
+          if (id % 4 === 0) {
+            return (
+              <Row gutter={8} key={uuidv4()}>
+                {buyNoteData.map((note, id2) => {
+                  if (id2 >= id && id2 < id + 4) {
+                    return (
+                      <Col span={6} key={uuidv4()}>
+                        <NOTE note={note} isLogin={isLogin} memberName={memberName} money={money} setMoney={setMoney} />
+                        {/*
                       <Card
                         hoverable
                         cover={
@@ -176,14 +192,18 @@ function Account({ memberName, isLogin }) {
                       >
                         <Meta title={`${note.title}`} description={`${note.grade}`} />
                       </Card>
-                    </Col>
-                  );
-                }
-              })}
-            </Row>
-          );
-        }
-      })}
+                      */}
+                      </Col>
+                    );
+                  }
+                })}
+              </Row>
+            );
+          }
+        })
+      ) : (
+        <Spin tip={"loading..."} style={{ position: "absolute", left: "50%", top: "50%" }} />
+      )}
     </div>
   );
 

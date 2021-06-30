@@ -30,10 +30,10 @@ function App() {
           <AboutPage />
         </Route>
         <Route path="/note">
-          <Note memberName={memberName} isLogin={isLogin}/>
+          <Note memberName={memberName} isLogin={isLogin} />
         </Route>
         <Route path="/uploadNote">
-          <AddNote memberName={memberName}/>
+          <AddNote memberName={memberName} isLogin={isLogin} />
         </Route>
         <Route path="/about">
           <AboutPage />
