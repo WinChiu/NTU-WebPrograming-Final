@@ -5,10 +5,11 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-
     "start": "cd frontend && yarn start",
     "server": "nodemon server.js --ext js,graphql --exec babel-node",
-    "build": "cd frontend && yarn build"
+    "build": "cd frontend && yarn build",
+    "install-frontend": "cd frontend && yarn add",
+    "heroku-postbuild": "yarn install-frontend && yarn build"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
