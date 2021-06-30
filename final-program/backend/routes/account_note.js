@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.post("/buyNote", async (req, res) => {
   const { member, note } = req.query;
-  // this is ok
-  // console.log(req.query)
+
   let loginMember = await MemberModel.findOne({ name: member });
   let buyNote = await noteModel.findOne({ title: note });
   loginMember.noteBuy = [...loginMember.noteBuy, buyNote._id];
@@ -20,22 +19,11 @@ router.post("/buyNote", async (req, res) => {
   let author = await MemberModel.findOne({ _id: authorId });
   author.money += buyNote.price;
   author.save();
-  /*
-  loginMember = await loginMember
-    .populate("ownNote")
-    .populate("noteBuy")
-    .populate("attendActivity")
-    .populate({ path: "reservation", populate: "mentor" })
-    .execPopulate();
-  */
+
   res.send({ money: loginMember.money });
 });
 
 router.post("/addNote", async (req, res) => {
-  // this way can get the passing parameters
-  // console.log(req.body)
-  // this way cannot
-  // console.log(req.query)
   const { member, title, grade, subject, price, img, description, pdffile, pdffile_preview } = req.body;
   let loginMember = await MemberModel.findOne({ name: member });
   let noteExist = await noteModel.findOne({ title: title });
@@ -43,7 +31,7 @@ router.post("/addNote", async (req, res) => {
     res.send({ msg: "Note exists" });
   } else {
     let author = loginMember._id;
-    //console.log(loginMember._id)
+
     let rate = -1;
     let hassold = 0;
     const newNote = new noteModel({
@@ -60,12 +48,6 @@ router.post("/addNote", async (req, res) => {
       pdffile_preview,
     });
     newNote.save();
-    // this way can return a object newNote with the property _id
-    // console.log("New",newNote._id)
-
-    // this way the note will become null
-    // let note = await noteModel.findOne({title:title})
-    // console.log("note",note._id)
     loginMember.ownNote = [...loginMember.ownNote, newNote._id];
     loginMember.save();
 
@@ -84,8 +66,6 @@ router.get("/checkHaveBuy", async (req, res) => {
   const { id, memberName } = req.query;
   let loginMember = await MemberModel.findOne({ name: memberName });
   // array
-  // console.log(typeof((loginMember.ownNote[0]).toString()))
-  // console.log("id", typeof(id))
   if (loginMember) {
     let ownNote = loginMember.ownNote;
     let noteBuy = loginMember.noteBuy;
@@ -96,7 +76,6 @@ router.get("/checkHaveBuy", async (req, res) => {
       noteBuy[i].toString();
     }
 
-    // console.log(loginMember.noteBuy)
     let own = loginMember.ownNote.includes(id);
     let buy = loginMember.noteBuy.includes(id);
     if (own) {

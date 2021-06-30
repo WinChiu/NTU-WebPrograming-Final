@@ -60,7 +60,7 @@ function AddNote({ isLogin, memberName }) {
   // for checkbox require
   const onCheckboxChange = async (e) => {
     await setChecked(e.target.checked);
-    console.log(e.target.checked);
+
     form.validateFields(["筆記檔案(請上傳PDF)"]);
   };
 
@@ -96,15 +96,7 @@ function AddNote({ isLogin, memberName }) {
     } else message.error("筆記名已存在");
   };
 
-  /* test for fetch all note
-	useEffect(() => {
-	  const fetchData = async () => {
-	    const result = await getItems();
-	    console.log('fetch data:', result)
-	    setItems(result)
-	}
-	fetchData()
-	}, [])*/
+
 
   // the content style
   const style = {

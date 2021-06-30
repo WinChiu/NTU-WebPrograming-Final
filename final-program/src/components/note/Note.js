@@ -141,8 +141,7 @@ const Note = (props) => {
         let msg = await buyNote(props.memberName, props.note.title);
         setModal(false);
         props.setMoney(props.money - props.note.price);
-        console.log(props.money - props.note.price);
-        console.log(msg);
+ 
         setHasSold(hassold + 1);
         setHaveBuy("buy");
         message.success("購買成功");

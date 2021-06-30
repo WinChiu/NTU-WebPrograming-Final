@@ -135,13 +135,13 @@ const NoteIndex = ({ memberName, isLogin }) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getItems();
-      console.log("fetch note:", result);
+
       setNotes(result);
       let member_temp;
       if (isLogin !== "notLogin") {
         member_temp = await fetchMemberData(memberName);
         setMember(member_temp);
-        console.log("fetch member:", member_temp);
+
         setMoney(member_temp.money);
       }
       setAllNotes(result);
@@ -175,16 +175,13 @@ const NoteIndex = ({ memberName, isLogin }) => {
   const handleClick_sort_by_rate = (event) => {
     //若使用 notes.sort(cp_rate) 會無法rerender
     setNotes([...notes].sort(cp_rate));
-    console.log(notes.map((e) => e));
   };
   // 直接用filter 搜尋也可
   const handleClick_sort_by_hassold = (event) => {
     setNotes([...notes].sort(cp_hassold));
-    console.log(notes.map((e) => e));
   };
   const handleClick_sort_by_price = (event) => {
     setNotes([...notes].sort(cp_price));
-    console.log(notes.map((e) => e));
   };
 
   // only for the teacher and TAs test
@@ -271,9 +268,6 @@ const NoteIndex = ({ memberName, isLogin }) => {
         <div className="tagtype" id="tagtype2">
           {" "}
           {" 排序方式 "}
-          <Button type="primary" className="tag" onClick={handleClick_sort_by_rate}>
-            評分從高到低
-          </Button>{" "}
           <Button type="primary" className="tag" onClick={handleClick_sort_by_hassold}>
             觀看數從高到低
           </Button>{" "}

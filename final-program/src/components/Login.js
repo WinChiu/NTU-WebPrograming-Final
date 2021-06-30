@@ -87,6 +87,8 @@ function Login({ setIsLogin, setMemberName }) {
   };
   const toLoginType = () => {
     setLoginStage("login type");
+    setMembertype("not member");
+    setWarningMsg("");
   };
   const login = (
     <div className="login-type login-container">
@@ -144,7 +146,7 @@ function Login({ setIsLogin, setMemberName }) {
   );
 
   const onFinishRegister = async (values) => {
-    const msg = await registerAccount(values.username, values.password, values.memberType, values.email, 0);
+    const msg = await registerAccount(values.username, values.password, values.memberType, values.email, 3000);
     if (msg === "Account exist") {
       setWarningMsg("存在相同名稱或信箱");
     } else {

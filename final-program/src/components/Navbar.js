@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "antd";
+import webLogo from "../images/webLogo.png";
 export default function Navbar({ memberName, isLogin, setIsLogin, setMemberName }) {
-  console.log(isLogin);
+
   return (
     <nav>
-      <img src="https://www.ntu.edu.tw/images/logo.png" alt="logo" className="logo" />
+      <img src={webLogo} alt="logo" className="logo" />
       <div className="tags">
         <Link to="/about" className="nav-link-container">
           <h5 className="nav-tag">關於我們</h5>

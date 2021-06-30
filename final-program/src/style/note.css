@@ -49,9 +49,9 @@
   display: inline-block;
 }
 
-.button {
-  left: 20%;
-  top: 14%;
+.search .form .button {
+  left: 100%;
+  top: 58%;
   position: absolute;
   z-index: 0;
 }

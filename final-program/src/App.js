@@ -15,7 +15,7 @@ const LOCALSTORAGE_LOGIN_MEMBER = "memberNamePrev";
 function App() {
   const isLoginPrev = localStorage.getItem(LOCALSTORAGE_LOGIN_STATUS);
   const memberNamePrev = localStorage.getItem(LOCALSTORAGE_LOGIN_MEMBER);
-  console.log(isLoginPrev, memberNamePrev);
+
   const [isLogin, setIsLogin] = useState(isLoginPrev || "notLogin");
   const [memberName, setMemberName] = useState(memberNamePrev || "");
 

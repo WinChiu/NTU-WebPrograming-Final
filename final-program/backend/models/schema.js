@@ -5,7 +5,7 @@ const memberSchema = new Schema({
   name: { type: String, require: true },
   email: { type: String, require: true },
   password: { type: String, require: true },
-  memberType: { type: String, require: true }, //mentor student
+  memberType: { type: String, require: true }, //"mentor", "student"
   ownNote: { type: [mongoose.Types.ObjectId], ref: "Note" },
   noteBuy: { type: [mongoose.Types.ObjectId], ref: "Note" },
   selfIntro: { type: String },
@@ -30,9 +30,9 @@ const noteSchema = new Schema({
   author: { type: mongoose.Types.ObjectId, ref: "Member" },
   rate: { type: Number, require: true },
   price: { type: Number, require: true },
-  // isSold 
+
   hassold: { type: Number, require: true },
-  // imgUrl: { type: [String] },
+
   img: { type: String },
   description: { type: String, require: true },
   pdffile: { type: String, require: true },

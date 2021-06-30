@@ -1,6 +1,6 @@
 import React from "react";
 import fakeMemberData from "../data/members";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 const About = () => {
   return (
     <section id="about">
@@ -9,7 +9,6 @@ const About = () => {
         <h3>Bibendum tincidunt nullam libero eu facilisis</h3>
       </header>
       <div className="logo-container">
-        <img src="https://www.ntu.edu.tw/images/logo.png" alt="ntu" className="school-logo" />
         <img src="https://www.ntu.edu.tw/images/logo.png" alt="ntu" className="school-logo" />
         <img src="https://www.ntu.edu.tw/images/logo.png" alt="ntu" className="school-logo" />
         <img src="https://www.ntu.edu.tw/images/logo.png" alt="ntu" className="school-logo" />

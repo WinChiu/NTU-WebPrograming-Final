@@ -1,6 +1,5 @@
 import axios from "axios";
-// const instance = axios.create({ baseURL: "http://localhost:4000/login" });
-// const instance = axios.create({ baseURL: "https://ntu-webprograming-project.herokuapp.com/login" });
+
 const instance = axios.create({ baseURL: "http://localhost:4000" || `${process.env.baseURL}` });
 
 const loginAccount = async (name, password, memberType) => {
@@ -8,10 +7,7 @@ const loginAccount = async (name, password, memberType) => {
     data: { msg },
   } = await instance.post("/login/login_account", null, { params: { name, password, memberType } });
 
-  // const {
-  //   data: { msg },
-  // } = await axios.post("login/login_account", null, { params: { name, password, memberType } });
-
+ 
   return msg;
 };
 

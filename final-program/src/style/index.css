@@ -65,6 +65,8 @@ nav {
   top: 0;
   z-index: 5;
   background-color: white;
+  -webkit-box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+          box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 nav .logo {
@@ -535,18 +537,9 @@ nav .tags Button {
   width: 100%;
 }
 
-#account-management .management-container .btn-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: flex-start;
+#account-management .management-container .account-btn-container {
   width: 100%;
-  margin-bottom: 16px;
-}
-
-#account-management .management-container .btn-container .btn {
-  margin-right: 16px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 /*# sourceMappingURL=index.css.map */

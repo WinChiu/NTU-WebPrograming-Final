@@ -11,7 +11,7 @@ const noteSchema = new Schema({
   rate: { type: Number, require: true },
   price: { type: Number, require: true },
   hassold: { type: Boolean, require: true },
-  //img: { type: [String] },
+
   img: { type: String },
   description: { type: String, require: true },
   pdffile:{type:String, require:true},
