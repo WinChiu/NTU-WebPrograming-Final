@@ -65,13 +65,12 @@ mongoose.set("useFindAndModify", false);
 // const server = app.listen(process.env.PORT || 4000, function () {
 //   console.log('Listening on port ' + server.address().port);
 // });
-const __dirname = path.resolve();
-console.log(__dirname);
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "/routes"));
 
-  // Hande SPA
-  app.use(/.*/, (req, res) => {
-    res.sendFile("../public");
-  }); // Refer to any route at all
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("frontend/routes"));
+
+  // // Hande SPA
+  // app.use(/.*/, (req, res) => {
+  //   res.sendFile("../public");
+  // }); // Refer to any route at all
 }
