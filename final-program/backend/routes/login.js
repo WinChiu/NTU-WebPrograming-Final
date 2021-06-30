@@ -5,6 +5,7 @@ import { noteModel } from "../models/schema.js";
 const router = express.Router();
 
 router.post("/login_account", async (req, res) => {
+  console.log("hi");
   const { name, password, memberType } = req.query;
   const isAccountExist = await MemberModel.findOne({ name: name, memberType: memberType });
   if (!isAccountExist) {
