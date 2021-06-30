@@ -31,9 +31,21 @@ app.get("/", (req, res) => {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+// mongoose
+//   .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+//   .then((res) => {
+//     console.log("Mongo DB connection created");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
+// mongoose.set("useFindAndModify", false);
 
 mongoose
-  .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(
+    "mongodb+srv://evan:evan145236@webprogramming.srmi9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    { useNewUrlParser: true, useUnifiedTopology: true }
+  )
   .then((res) => {
     console.log("Mongo DB connection created");
   })

@@ -1,23 +1,23 @@
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 
-require('dotenv-defaults').config();
-function connectMongo() {
-  console.log("start")
-  mongoose.connect(`${process.env.MONGO_URL}`, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  });
+// require('dotenv-defaults').config();
+// function connectMongo() {
+//   console.log("start")
+//   mongoose.connect(`${process.env.MONGO_URL}`, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true,
+//   });
 
-  const db = mongoose.connection;
+//   const db = mongoose.connection;
 
-  db.on('error', console.error.bind(console, 'connection error:'));
-  db.once('open', function () {
-    console.log('mongo connected!');
-  });
-}
+//   db.on('error', console.error.bind(console, 'connection error:'));
+//   db.once('open', function () {
+//     console.log('mongo connected!');
+//   });
+// }
 
-const mongo = {
-  connect: connectMongo,
-};
+// const mongo = {
+//   connect: connectMongo,
+// };
 
-export default mongo;
+// export default mongo;
