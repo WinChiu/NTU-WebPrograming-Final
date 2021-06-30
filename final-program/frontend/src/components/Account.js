@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 
 // I add
 import NOTE from "./note/Note"
-
+import { Spin } from "antd";
 function Account({ memberName, isLogin }) {
   const { Meta } = Card;
   const { Column, ColumnGroup } = Table;
@@ -20,6 +20,8 @@ function Account({ memberName, isLogin }) {
   // I add
   // of no use, only need to make the note 
   const [money,setMoney] = useState(-1)
+  const [finishBuyNote,setFinishBuyNote] = useState(false)
+  const [finishOwnNote,setFinishOwnNote] = useState(false)
 
   // eslint-disable-next-line no-extend-native
   Date.prototype.format = function (fmt) {
@@ -45,7 +47,9 @@ function Account({ memberName, isLogin }) {
 
       setMemberData([memberDataFetch.name, memberDataFetch.memberType, memberDataFetch.email, memberDataFetch.money]);
       setOwnNoteData(memberDataFetch.ownNote);
+      setFinishOwnNote(true)
       setBuyNoteData(memberDataFetch.noteBuy);
+      setFinishBuyNote(true)
       setActivityRecordData(memberDataFetch.attendActivity);
       setReservationRecordData(memberDataFetch.reservation);
     };
@@ -128,7 +132,10 @@ function Account({ memberName, isLogin }) {
   // I add
   const ownNote = (
     <div className="site-card-wrapper">
-      {ownNoteData.map((note, id) => {
+      { finishOwnNote
+      ?
+      (
+      ownNoteData.map((note, id) => {
         if (id % 4 === 0) {
           return (
             <Row gutter={8} key={uuidv4()}>
@@ -161,13 +168,19 @@ function Account({ memberName, isLogin }) {
             </Row>
           );
         }
-      })}
+      })
+      )
+      :
+      ( <Spin tip={"loading..."} style={{position:"absolute", left:"50%", top:"50%"}}/>)
+      }
     </div>
   );
   // I add
   const buyNote = (
     <div className="site-card-wrapper">
-      {buyNoteData.map((note, id) => {
+      {finishBuyNote
+      ?
+       ( buyNoteData.map((note, id) => {
         if (id % 4 === 0) {
           return (
             <Row gutter={8} key={uuidv4()}>
@@ -199,7 +212,10 @@ function Account({ memberName, isLogin }) {
             </Row>
           );
         }
-      })}
+      }))
+        :
+      ( <Spin tip={"loading..."} style={{position:"absolute", left:"50%", top:"50%"}}/>)
+      }
     </div>
   );
 

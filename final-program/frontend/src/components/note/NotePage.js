@@ -309,9 +309,12 @@ const NoteIndex = ({ memberName, isLogin }) => {
         <div className="loading1">
           <Spin tip="Loading..."/>
         </div>
+        {/*
         <div className="loading2">
             <Alert message="加載中..." description="因檔案較大，請稍候..." type="info" />
         </div>
+        */
+        }
           <div className="loading-scroll">loading</div>
         </div>
       )}
