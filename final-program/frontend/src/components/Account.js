@@ -3,6 +3,10 @@ import { Table, Tag, Space, Button, List, Typography, Divider, Timeline } from "
 import { Card, Col, Row } from "antd";
 import { fetchMemberData } from "../api/account";
 import { v4 as uuidv4 } from "uuid";
+
+// I add
+import NOTE from "./note/Note"
+
 function Account({ memberName, isLogin }) {
   const { Meta } = Card;
   const { Column, ColumnGroup } = Table;
@@ -12,6 +16,10 @@ function Account({ memberName, isLogin }) {
   const [buyNoteData, setBuyNoteData] = useState([]);
   const [activityRecordData, setActivityRecordData] = useState([]);
   const [reservationRecordData, setReservationRecordData] = useState([]);
+
+  // I add
+  // of no use, only need to make the note 
+  const [money,setMoney] = useState(-1)
 
   // eslint-disable-next-line no-extend-native
   Date.prototype.format = function (fmt) {
@@ -117,6 +125,7 @@ function Account({ memberName, isLogin }) {
       )}
     />
   );
+  // I add
   const ownNote = (
     <div className="site-card-wrapper">
       {ownNoteData.map((note, id) => {
@@ -127,6 +136,8 @@ function Account({ memberName, isLogin }) {
                 if (id2 >= id && id2 < id + 4) {
                   return (
                     <Col span={6} key={uuidv4()}>
+                      <NOTE note={note} isLogin={isLogin} memberName={memberName} money={money} setMoney={setMoney}/>
+                      {/*
                       <Card
                         hoverable
                         cover={
@@ -141,6 +152,8 @@ function Account({ memberName, isLogin }) {
                       >
                         <Meta title={`${note.title}`} description={`${note.grade}`} />
                       </Card>
+                      */
+                      }
                     </Col>
                   );
                 }
@@ -151,7 +164,7 @@ function Account({ memberName, isLogin }) {
       })}
     </div>
   );
-
+  // I add
   const buyNote = (
     <div className="site-card-wrapper">
       {buyNoteData.map((note, id) => {
@@ -162,6 +175,8 @@ function Account({ memberName, isLogin }) {
                 if (id2 >= id && id2 < id + 4) {
                   return (
                     <Col span={6} key={uuidv4()}>
+                      <NOTE note={note} isLogin={isLogin} memberName={memberName} money={money} setMoney={setMoney}/>
+                      {/*
                       <Card
                         hoverable
                         cover={
@@ -176,6 +191,7 @@ function Account({ memberName, isLogin }) {
                       >
                         <Meta title={`${note.title}`} description={`${note.grade}`} />
                       </Card>
+                      */}
                     </Col>
                   );
                 }

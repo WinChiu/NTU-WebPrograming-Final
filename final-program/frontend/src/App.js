@@ -33,7 +33,7 @@ function App() {
           <Note memberName={memberName} isLogin={isLogin}/>
         </Route>
         <Route path="/uploadNote">
-          <AddNote memberName={memberName}/>
+          <AddNote memberName={memberName} isLogin={isLogin}/>
         </Route>
         <Route path="/about">
           <AboutPage />

@@ -131,16 +131,17 @@ const Note = (props) =>{
     const [modal,setModal] = useState(false);
     const [author, setAuthor] = useState("");
     const [haveBuy, setHaveBuy] = useState("");
-    
+    const [haveRate,setHaveRate] = useState(false);
+
     const showModal = () => {
       setModal(true);
     };
 
     const handleBuy = async() => {
       if (props.isLogin !== "notLogin"){
-        if(props.money < props.note.price){
-          message.error("您的剩餘金錢不夠喔~")
-        }
+          if(props.money < props.note.price){
+            message.error("您的剩餘金錢不夠喔~")
+          }
         else {
           let msg = await buyNote(props.memberName,props.note.title)
           setModal(false);
@@ -177,7 +178,14 @@ const Note = (props) =>{
         setAuthor(temp);
       }
       setHasSold(props.note.hassold);
-      setHaveBuy(await checkHaveBuy(props.note._id,props.memberName))
+      if(props.isLogin!=="notLogin"){
+        setHaveBuy(await checkHaveBuy(props.note._id,props.memberName))
+        /*
+        if(HaveBuy){
+          setHaveRate(await checkHaveRate(props.note._id,props.memberName))
+        }
+        */
+      }
     }, []);
 
 
@@ -247,6 +255,7 @@ const Note = (props) =>{
             售價 : {props.note.price}
             </div>
           </span>
+          {/*
           <span className={imgs.rate}>
             {props.note.rate !== -1
             ?
@@ -255,6 +264,8 @@ const Note = (props) =>{
               "此筆記還沒有評價喔~"
             }
           </span>
+          */
+          }
         </ButtonBase>
           <Modal title={"購買筆記"} visible={modal} okText={"購買"} cancelText="取消" width="600px" height="600px"
                 onOk={handleBuy} okButtonProps={(haveBuy === "own" || haveBuy === "buy")?{disabled:true}:{disabled:false}} onCancel={handleCancel} centered={true}>
@@ -298,15 +309,30 @@ const Note = (props) =>{
             <div className="modal_textprice">
             售價 : {props.note.price}
             </div>
+            {/*
             <span className="modal_rate">
               {
-                props.note.rate !== -1
+                isLogin !== "notLogin"
                 ?
+                (
+                haveRate === true
+                ?
+                  <>
+                  <div>你已經給予評價</div>
                   <Rate disabled defaultValue={props.note.rate} allowHalf={true}/>
+                  </>
                 :
-                  "還沒有評價喔~"
+                  <>
+                  <div>你還沒有給予評價喔~</div>
+                  <Rate allowHalf={true} allowClear onChange={handleRate}/>
+                  </>
+                )
+                :
+                <></>
               }
             </span>
+            */
+            }
             {props.note.pdffile_preview
             ?
             <div className="note-preview">
@@ -338,15 +364,3 @@ const Note = (props) =>{
   }
 
   export default Note;
-
-
-
-
-
-
-
-
-
-
-
-

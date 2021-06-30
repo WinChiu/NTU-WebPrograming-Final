@@ -8,6 +8,8 @@ const memberSchema = new Schema({
   memberType: { type: String, require: true }, //mentor student
   ownNote: { type: [mongoose.Types.ObjectId], ref: "Note" },
   noteBuy: { type: [mongoose.Types.ObjectId], ref: "Note" },
+  // I add
+  //rate:{type:Number},
   selfIntro: { type: String },
   attendActivity: { type: [mongoose.Types.ObjectId], ref: "Activity" },
   money: { type: Number, require: true },
@@ -29,6 +31,8 @@ const noteSchema = new Schema({
   subject: { type: String, require: true },
   author: { type: mongoose.Types.ObjectId, ref: "Member" },
   rate: { type: Number, require: true },
+  //I add
+  //rate_count : {type:Number,require:true},
   price: { type: Number, require: true },
   // isSold 
   hassold: { type: Number, require: true },

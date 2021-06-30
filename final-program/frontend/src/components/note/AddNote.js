@@ -9,13 +9,11 @@ import { createItem } from '../../api/note';
 import "../../style/note.css"
 
 // package
-import { Input, Form, Button, Select, InputNumber, Switch,Tooltip,Typography, message, } from 'antd';
+import { Input, Form, Button, Select, InputNumber, Switch,Tooltip,Typography, message,  Checkbox} from 'antd';
 import Item from 'antd/lib/list/Item';
 const { TextArea } = Input;
-const { Option } = Select;
 
-
-/*
+/* the schema of note
 const noteSchema = new Schema({
   title: { type: String, require: true },
   grade: { type: String, require: true },
@@ -23,6 +21,7 @@ const noteSchema = new Schema({
   // 連結到會員資料
   author: { type: mongoose.Types.ObjectId, require:true},
   rate: { type: Number, require: true },
+  rate_count : {type : Number, require:true},
   price: { type: Number, require: true },
   hassold: { type: Number, require: true },
   img: { type: [String] },
@@ -32,12 +31,14 @@ const noteSchema = new Schema({
 });
 */
 
-function AddNote({memberName}) {
+
+function AddNote({isLogin,memberName}) {
 	const [item, setItem] = useState({ title: "" ,
 					   grade:"" ,
 					   subject:"",
 					   author: "",
 					   rate: -1,
+					   //rate_count: -1,
 					   price: -1,
 					   hassold: 0,	
 					   img: "", 
@@ -46,27 +47,62 @@ function AddNote({memberName}) {
 					   pdffile_preview:"",
 					   });
 	const [preview,setPreview] = useState (true);
+
+	// unfortunately, the require for checkbox in antd form doesn't return a desire oucome
+	// so, we need to do this
+	const [checked, setChecked] = useState(false);
+	
+	// use for reset form
+	const [form] = Form.useForm();
+	
 	// test for fetch all data(all notes In MongoDB )
  	//const [items, setItems] = useState([])
 
+	// for checkbox require
+	const onCheckboxChange = async (e) => {
+        	await setChecked(e.target.checked);
+		console.log(e.target.checked)
+		form.validateFields(['筆記檔案(請上傳PDF)']);
+    	};
+
+	// for checkbox require
+	const validation = (rule, value, callback) => {
+	    if (checked) {
+	        return Promise.resolve();
+	    }
+	    return Promise.reject("若已上傳檔案，請打勾已確認");
+	};
+
+
 
 	const onSubmitHandler = async (e) => {
-	  e.preventDefault();
-	/*
-	  const result = await createItem(item);
-	  console.log(result)
-	*/  
+	  //e.preventDefault();
 	  const data = await addNote(memberName,item);
-	  if (data.msg === "Add a note successfully")
-	 	message.success("成功上傳你的筆記")
+	  if (data.msg === "Add a note successfully"){
+	 	message.success("成功上傳   可至 會員中心-我的筆記 查看")
+		await setChecked(false)
+		setItem({ title: "" ,
+		grade:"" ,
+		subject:"",
+		author: "",
+		rate: -1,
+		//rate_count: -1,
+		price: -1,
+		hassold: 0,	
+		img: "", 
+		description:"",
+		pdffile:"",
+		pdffile_preview:"",
+		})
+	  }
 	  else
 		message.error("筆記名已存在")
-  
-	//setItems([...items, result]);
+	  //form.resetFields()	
+
 	}
 	
 
-	/* test for fetch data
+	/* test for fetch all note
 	useEffect(() => {
 	  const fetchData = async () => {
 	    const result = await getItems();
@@ -76,14 +112,18 @@ function AddNote({memberName}) {
 	fetchData()
 	}, [])*/
 	
+	// the content style
 	const style = {
 	  top: '20%',
           left: "20%",
 	  position: "absolute",
 	  backgroundColor:"white",
 	}
-	const handleFinish = () => {
 
+
+	const handleFinish=(e)=>{
+		onSubmitHandler(e)
+		console.log(e)
 	}
 
 	const handleFinishFail = (error) => {
@@ -91,8 +131,15 @@ function AddNote({memberName}) {
 	}
 
 	return (
+
 	<div className="addNote" style={style}>
+	{isLogin !== "notLogin"
+	?
+	  <>
 	  <h3> 新增你的筆記 </h3>	
+	  {/*
+		In order to change the style of form label, we need to use style={{ color: "red" }} in form.item 
+	  */}
 	  <Form
              labelCol={{
           	span: 40,
@@ -103,10 +150,13 @@ function AddNote({memberName}) {
              }}
              layout="vertical"
              size={"large"}
+	     name="basic"
 	     onFinish={handleFinish}
 	     onFinishFailed={handleFinishFail}
+	     form={form}
        	   >
-		<Form.Item name="筆記名稱" label="筆記名稱" wrapperCol={{ span: 700}} rules={[{required: true,message:"筆記名稱不可為空"}]}>
+		<Form.Item name="筆記名稱"   label="筆記名稱" wrapperCol={{ span: 700}} 
+		rules={[{required: true,message:"筆記名稱不可為空"}]}>
 			<Input allowClear={true} maxLength={15} onChange={e => setItem({...item,title:e.target.value})}/>
 	        </Form.Item>  
 		<Form.Item name="年級" label="年級" wrapperCol={{ span: 400}} rules={[{required: true,message:"筆記年級不可為空"}]}>
@@ -140,8 +190,14 @@ function AddNote({memberName}) {
 		            <Select.Option value={"其它"}>其它</Select.Option>
 	                </Select>
 	          </Form.Item>
-        	  <Form.Item name="售價" label="售價" wrapperCol={{ span: 400}} rules={[{required: true,message:"筆記售價不可為空"}]}>
-          		<InputNumber onChange={value => setItem({ ...item, price: value })} />
+        	  <Form.Item name="售價" label="售價" wrapperCol={{ span: 400}} rules={[{required: true,message:"筆記售價不可為空且須不小於0"}]}>
+          		<InputNumber min={0} onChange={value =>{ 
+			  if (value < 0){
+				message.error("價格應該不小於 0")		
+			  }
+			  else
+			  	setItem({ ...item, price: value })
+			  }} />
         	  </Form.Item>
 
 		<Form.Item name="介紹一下你的筆記吧" label="介紹一下你的筆記吧" rules={[{required: true,message:"筆記介紹不可為空"}]}>
@@ -165,17 +221,33 @@ function AddNote({memberName}) {
 				<></>
 			}	     	
 	           </Form.Item>       
-		  <Form.Item name="筆記檔案(請上傳PDF)" label="筆記檔案(請上傳PDF)" rules={[{required: true,message:"筆記檔案不可為空"}]}>
-		     <FileBase64
+		  <Form.Item valuePropName="checked" name="筆記檔案(請上傳PDF)" label="筆記檔案(請上傳PDF)" rules={[{ validator: validation ,message:"筆記檔案不可為空 若已上傳請打勾"}]}>
+		     {
+		       // In documentation of form in antd, the checkbox doesn't work. Must use Checkbox
+		       // the filebase64 doesn't work with the form of antd, Hence I need to use the checkbox to require the prdffile
+		     }
+		     {item.pdffile !== ""
+
+		     ?	<>  
+		     	<Checkbox defaultChecked onChange={onCheckboxChange}>已上傳</Checkbox>
+		     	<Tooltip title="為了確保您有上傳 PDF">
+		            <Typography.Link>上傳檔案後請打勾確認已上傳</Typography.Link>
+		        </Tooltip>
+			</>   
+		     :
+			<Checkbox defaultChecked={false} disabled>未上傳</Checkbox>
+		     }
+		     
+	        	</Form.Item>
+	     		<FileBase64
 				type="file"
 	 		    	multiple={false}
 	 		    	onDone={({ base64 }) => {
 	 			    	setItem({ ...item, pdffile:base64 })
 	 		    	}}
-		     />
-		     
-	        </Form.Item>
-	     	<Form.Item label="是否提供試閱筆記" >
+		     	/>
+		     <br/>
+		     <Form.Item label="是否提供試閱筆記" >
 			<Switch defaultChecked 
 			onChange={(checked)=>{
 				if(checked)
@@ -204,14 +276,17 @@ function AddNote({memberName}) {
 		<></>
 		}		
 		<Form.Item >
-		          <Button type="primary" onClick={onSubmitHandler} htmlType="submit">提交</Button>
+		          <Button type="primary" htmlType="submit">提交</Button>
 	        </Form.Item>   
 
       		</Form>
+
 	  {/* observe note data*/}
 	  {/*<pre>{JSON.stringify(item, null, '\t')}</pre>*/}
-	
-	
+		</>
+	:
+	(<h4 className="addnote-notlogin">請先登入再新增筆記</h4>)
+	}
 	</div>
 	);
 }

@@ -110,10 +110,17 @@
     flex-wrap: wrap;
 }
 
-.loading{
+/* I add */
+.loading1{
     padding:10px;
-    left:35%;
+    left:50%;
     top:90%;
+    position:absolute;
+}
+.loading2{
+    padding:10px;
+    left:42%;
+    top:110%;
     position:absolute;
 }
 
@@ -221,4 +228,8 @@
     top: '20%';
     left: "20%";
     position: "absolute";
+}
+
+.addnote-notlogin{
+    font-family: sans-serif;
 }

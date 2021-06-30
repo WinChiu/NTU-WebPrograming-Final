@@ -60,14 +60,6 @@ router.post("/addNote", async (req, res) => {
   	loginMember.ownNote = [...loginMember.ownNote, newNote._id]
   	loginMember.save();
   
-    /*
-  loginMember = await loginMember
-    .populate("ownNote")
-    .populate("noteBuy")
-    .populate("attendActivity")
-    .populate({ path: "reservation", populate: "mentor" })
-    .execPopulate();
-  */
   	res.send({ msg: "Add a note successfully" });
   }
 });
@@ -86,43 +78,51 @@ router.get("/checkHaveBuy", async(req,res) =>{
   // array
   // console.log(typeof((loginMember.ownNote[0]).toString()))
   // console.log("id", typeof(id))
-  let ownNote = loginMember.ownNote
-  let noteBuy = loginMember.noteBuy
-  for(let i = 0; i < ownNote.size; i++){
-    ownNote[i].toString()
-  }
-  for(let i = 0; i < ownNote.size; i++){
-    noteBuy[i].toString()
-  }  
-  
-  // console.log(loginMember.noteBuy)
-  let own = loginMember.ownNote.includes(id)
-  let buy = loginMember.noteBuy.includes(id)
-  if (own){
-      res.send({ haveBuy: "own"}) 
-  }
-  else if (buy){
-      res.send({ haveBuy: "buy"}) 
-  }
-  else{
-      res.send({ haveBuy: "none"}) 
-  }
+  if (loginMember){
+    let ownNote = loginMember.ownNote
+    let noteBuy = loginMember.noteBuy
+    for(let i = 0; i < ownNote.size; i++){
+      ownNote[i].toString()
+    }
+    for(let i = 0; i < ownNote.size; i++){
+      noteBuy[i].toString()
+    }  
 
+    // console.log(loginMember.noteBuy)
+    let own = loginMember.ownNote.includes(id)
+    let buy = loginMember.noteBuy.includes(id)
+    if (own){
+        res.send({ haveBuy: "own"}) 
+    }
+    else if (buy){
+        res.send({ haveBuy: "buy"}) 
+    }
+    else{
+        res.send({ haveBuy: "none"}) 
+    }
+  }
+  else {
+    res.send({haveBuy:"none"})
+  }
 })
 
 
 router.post("/:name/addMoney", async (req, res) => {
   let loginMember = await MemberModel.findOne({ name: req.params.name });
-  loginMember.money += 500;
-  loginMember.save();
-  res.send({ money: loginMember.money });
+  if (loginMember){
+    loginMember.money += 500;
+    loginMember.save();
+    res.send({ money: loginMember.money });
+  }
 });
 
 router.post("/:name/resetMoney", async (req, res) => {
   let loginMember = await MemberModel.findOne({ name: req.params.name });
-  loginMember.money = 0;
-  loginMember.save();
-  res.send({ money: loginMember.money });
+  if (loginMember){
+    loginMember.money = 0;
+    loginMember.save();
+    res.send({ money: loginMember.money });
+  }
 });
 
 

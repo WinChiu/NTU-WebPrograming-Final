@@ -76,6 +76,8 @@ const checkHaveBuy = async (id,memberName) => {
 }
 
 
+
+
 const testAddMoney = async (name) => {
   const {
 	//data is the reserve word, money is the name of return parameter
