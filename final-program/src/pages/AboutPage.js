@@ -6,7 +6,6 @@ const About = () => {
     <section id="about">
       <header className="about-header">
         <h1>關於我們</h1>
-        <h3>Bibendum tincidunt nullam libero eu facilisis</h3>
       </header>
       <div className="logo-container">
         <img src="https://www.ntu.edu.tw/images/logo.png" alt="ntu" className="school-logo" />
