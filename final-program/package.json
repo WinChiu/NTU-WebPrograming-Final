@@ -4,6 +4,9 @@
   "main": "index.js",
   "license": "MIT",
   "type": "module",
+  "engines": {
+    "node": "^16.4.0"
+  },
   "scripts": {
     "start": "cd frontend && yarn start",
     "server": "nodemon server.js --ext js,graphql --exec babel-node",
