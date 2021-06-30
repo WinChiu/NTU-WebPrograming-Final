@@ -1,14 +1,14 @@
 //import axios from "../../api"
 import axios from 'axios';
 
-// const geturl = "http://localhost:4000/note"
-// const uploadurl = "http://localhost:4000/note"
+const geturl = "http://localhost:4000/note"
+const uploadurl = "http://localhost:4000/note"
 
 // const geturl = "https://ntu-webprograming-project.herokuapp.com/note";
 // const uploadurl = "https://ntu-webprograming-project.herokuapp.com/note";
 
-const geturl = "note/";
-const uploadurl = "note/";
+// const geturl = "note/";
+// const uploadurl = "note/";
 
 const getitems = () => axios.get(geturl);
 const createitem = (item) => axios.post(uploadurl,item);

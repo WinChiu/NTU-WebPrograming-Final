@@ -12,7 +12,7 @@ router.get("/memberData/:name", async (req, res) => {
     .populate("attendActivity")
     .populate({ path: "reservation", populate: "mentor" })
     .execPopulate();
-
+  console.log(123);
   res.send({ memberData: loginMember });
 });
 

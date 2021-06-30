@@ -6,6 +6,7 @@ import loginRoute from "./routes/login.js";
 import accountRoute from "./routes/account.js";
 import noteRoutes from "./routes/note.js";
 import account_noteRoute from "./routes/account_note.js";
+import path from "path";
 
 dotenv_defaults.config();
 
@@ -52,9 +53,10 @@ mongoose.set("useFindAndModify", false);
 // const server = app.listen(process.env.PORT || 4000, function () {
 //   console.log('Listening on port ' + server.address().port);
 // });
-
+const __dirname = path.resolve();
+console.log(__dirname);
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(__dirname + "/public"));
+  app.use(express.static(__dirname + "/routes"));
 
   // Hande SPA
   app.use(/.*/, (req, res) => {

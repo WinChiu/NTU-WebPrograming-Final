@@ -1,7 +1,7 @@
 import axios from "axios";
-// const instance = axios.create({ baseURL: "http://localhost:4000/account" });
+const instance = axios.create({ baseURL: "http://localhost:4000/account" });
 // const instance = axios.create({ baseURL: "https://ntu-webprograming-project.herokuapp.com/account" });
-const instance = axios.create({ baseURL: "account/" });
+// const instance = axios.create({ baseURL: "account/" });
 const fetchMemberData = async (name) => {
   const {
     data: { memberData },
