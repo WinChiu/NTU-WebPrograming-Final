@@ -216,7 +216,7 @@ function Account({ memberName, isLogin }) {
           >
             基本資料
           </Button>
-          {/* <Button
+          <Button
             type="primary"
             onClick={() => {
               setDatatype("reservation");
@@ -234,7 +234,6 @@ function Account({ memberName, isLogin }) {
           >
             活動紀錄
           </Button>
-           */}
           <Button
             type="primary"
             onClick={() => {
