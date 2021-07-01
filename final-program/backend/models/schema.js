@@ -30,7 +30,9 @@ const noteSchema = new Schema({
   author: { type: mongoose.Types.ObjectId, ref: "Member" },
   rate: { type: Number, require: true },
   price: { type: Number, require: true },
+
   hassold: { type: Number, require: true },
+
   img: { type: String },
   description: { type: String, require: true },
   pdffile: { type: String, require: true },

@@ -6,16 +6,12 @@ import loginRoute from "./routes/login.js";
 import accountRoute from "./routes/account.js";
 import noteRoutes from "./routes/note.js";
 import account_noteRoute from "./routes/account_note.js";
-import wakeUpDyno from "./route/wakeUpDyno.js";
-import httpServer from "http-server";
 import path from "path";
-import { wakeDyno } from "heroku-keep-awake";
 
 dotenv_defaults.config();
 
 const app = express();
 const port = process.env.PORT || 4000;
-const DYNO_URL = "https://ntu-webprograming-project.herokuapp.com";
 
 app.use(cors());
 
@@ -33,10 +29,8 @@ app.get("/", (req, res) => {
 });
 
 app.listen(port, () => {
-  wakeDyno(DYNO_URL);
   console.log(`App listening on port ${port}`);
 });
-
 mongoose
   .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((res) => {

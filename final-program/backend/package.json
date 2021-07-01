@@ -20,8 +20,6 @@
     "cors": "^2.8.5",
     "dotenv-defaults": "^2.0.2",
     "express": "^4.17.1",
-    "heroku-keep-awake": "^1.1.2",
-    "http-server": "^0.12.3",
     "mongoose": "^5.12.14",
     "routers": "^0.1.4",
     "v8flags": "^3.2.0"
