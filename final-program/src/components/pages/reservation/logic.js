@@ -20,7 +20,7 @@ const logic = {
       });
       return data.message;
     } catch (e) {
-      return 'Your request is sent!';
+      return '你已成功預約!';
     }
   },
 };
