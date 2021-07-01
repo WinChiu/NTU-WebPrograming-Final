@@ -24,7 +24,7 @@ function MentorPlansMenu() {
                   <li>2% Cash Back</li>
                   <li>$10,000 Limit</li>
                 </ul>
-                
+
                 <Link to='/reservation' className="btn-link">
                   <Button buttonSize='btn--wide' buttonColor='primary'>
                     我要預約
@@ -54,7 +54,7 @@ function MentorPlansMenu() {
             <Link to ='/signup' className='MentorPlans__container-card'>
               <div className='MentorPlans__container-cardInfo'>
                 <div className='icon'>
-                  <BsXDiamondFill /> 
+                  <BsXDiamondFill />
                 </div>
                 <h3>國外大學</h3>
                 <h4>申請事務輔導</h4>
