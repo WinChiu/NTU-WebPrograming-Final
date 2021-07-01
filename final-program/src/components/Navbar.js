@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button } from "antd";
 import webLogo from "../images/webLogo.png";
 export default function Navbar({ memberName, isLogin, setIsLogin, setMemberName }) {
-
   return (
     <nav>
       <img src={webLogo} alt="logo" className="logo" />
@@ -11,7 +10,10 @@ export default function Navbar({ memberName, isLogin, setIsLogin, setMemberName 
         <Link to="/about" className="nav-link-container">
           <h5 className="nav-tag">關於我們</h5>
         </Link>
-        <h5 className="nav-tag">國內外升學資源</h5>
+        <Link to="/uniHome" className="nav-link-container">
+          <h5 className="nav-tag">國內外升學資源</h5>
+        </Link>
+
         <Link to="/note">
           <h5 className="nav-tag">學習筆記專區</h5>
         </Link>

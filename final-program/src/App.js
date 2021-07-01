@@ -6,6 +6,13 @@ import Login from "./components/Login";
 import Account from "./components/Account";
 import Note from "./components/note/NotePage";
 import AddNote from "./components/note/AddNote";
+
+import Activity from "./components/pages/Activity/Activity";
+import MentorPlans from "./components/pages/MentorPlan/MentorPlans";
+import Mentors from "./components/pages/Mentors/Mentors";
+import Reservation from "./components/pages/reservation/index";
+import UniHome from "./components/pages/UniHome/UniMenu";
+
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -35,6 +42,12 @@ function App() {
         <Route path="/uploadNote">
           <AddNote memberName={memberName} isLogin={isLogin} />
         </Route>
+        <Route path="/UniHome" exact component={UniHome} />
+        <Route path="/reservation" exact component={Reservation} />
+        <Route path="/activities" component={Activity} />
+        <Route path="/mentorPlan" component={MentorPlans} />
+        <Route path="/mentorIntro" component={Mentors} />
+
         <Route path="/about">
           <AboutPage />
         </Route>
@@ -48,6 +61,9 @@ function App() {
             LOCALSTORAGE_LOGIN_MEMBER={LOCALSTORAGE_LOGIN_MEMBER}
           />
         </Route>
+
+        <Route path="/signup1" component={() => (window.location = "https://forms.gle/fKwkyj59GGok8nec9")} />
+        <Route path="/signup2" component={() => (window.location = "https://forms.gle/PXQUruGyN7f1Yhf18")} />
       </Switch>
     </Router>
   );
