@@ -7,6 +7,9 @@
   align-items: center;
   background-color: rgb(194, 193, 193);
 }
+.activityComp-row .col {
+  padding-top: 48px;
+}
 
 .activityComp__container {
   list-style-type: none;
