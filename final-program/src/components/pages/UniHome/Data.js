@@ -4,7 +4,7 @@ export const homeObjOne = {
     lightTextDesc: false,
     headline: '一對一輔導計劃',
     description:
-      'Get access to our exclusive diamond card that allows you to  send unlimited transactions without getting charged any fees',
+      '透過預約輔導計劃，讓你的成長路上始終有人相伴指引。',
     src: '/mentorPlan',
     src2: '/mentorIntro',
     buttonColor: 'primary',
@@ -21,7 +21,7 @@ export const homeObjOne = {
     lightTextDesc: true,
     headline: '活動與工作坊',
     description:
-      'We have you covered no matter where you are located. Over 140 locations worldwide to ensure you have access anytime',
+      '我們將定期邀請各界成功人士，優秀學長姐回來分享經驗，並提供一對一交談的難得機會。',
     src: '/activities',
     src2: '/activities',
     buttonColor: 'btn--primary',
