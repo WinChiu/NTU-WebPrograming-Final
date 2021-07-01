@@ -58,7 +58,7 @@ function App() {
             LOCALSTORAGE_LOGIN_STATUS={LOCALSTORAGE_LOGIN_STATUS}
             LOCALSTORAGE_LOGIN_MEMBER={LOCALSTORAGE_LOGIN_MEMBER}
           />
-        </Route>        
+        </Route>
         <Route path='/signup1' component={() => window.location = 'https://forms.gle/fKwkyj59GGok8nec9'}/>
         <Route path='/signup2' component={() => window.location = 'https://forms.gle/PXQUruGyN7f1Yhf18'}/>
       </Switch>
