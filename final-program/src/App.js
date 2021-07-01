@@ -41,7 +41,7 @@ function App() {
         <Route path="/uploadNote">
           <AddNote memberName={memberName} isLogin={isLogin} />
         </Route>
-        <Route path="/UniHome" exact component={UniHome} />
+        {/* <Route path="/UniHome" exact component={UniHome} /> */}
         {/* <Route path ='/reservation' exact component={Reservation}/>
         <Route path ='/activities' component={Activity}/>
         <Route path ='/mentorPlan' component={MentorPlans}/>
@@ -59,8 +59,8 @@ function App() {
             LOCALSTORAGE_LOGIN_MEMBER={LOCALSTORAGE_LOGIN_MEMBER}
           />
         </Route>
-        <Route path="/signup1" component={() => (window.location = "https://forms.gle/fKwkyj59GGok8nec9")} />
-        <Route path="/signup2" component={() => (window.location = "https://forms.gle/PXQUruGyN7f1Yhf18")} />
+        {/* <Route path="/signup1" component={() => (window.location = "https://forms.gle/fKwkyj59GGok8nec9")} />
+        <Route path="/signup2" component={() => (window.location = "https://forms.gle/PXQUruGyN7f1Yhf18")} /> */}
       </Switch>
     </Router>
   );
