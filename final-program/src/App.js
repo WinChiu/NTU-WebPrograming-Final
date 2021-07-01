@@ -64,6 +64,7 @@ function App() {
 
         <Route path="/signup1" component={() => (window.location = "https://forms.gle/fKwkyj59GGok8nec9")} />
         <Route path="/signup2" component={() => (window.location = "https://forms.gle/PXQUruGyN7f1Yhf18")} />
+        <Route path='/confirm' component={() => window.location = 'https://forms.gle/ZfY7hRVA2xpzXJbp7'}/>
       </Switch>
     </Router>
   );
