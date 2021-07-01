@@ -5,6 +5,7 @@ import InputField from './../../../components/form/textField';
 import SelectBox from './../../../components/form/selectBox';
 import PickerDate from './../../../components/form/calendar';
 import json from './timeSlots.json';
+import { Link } from 'react-router-dom';
 import './style.css';
 
 const { mentorName, postReservation } = logic;
@@ -28,9 +29,9 @@ const Reservation = () => {
 
   const clearState = () => {
     setStudentName('');
-    setMentorName('');
     setBookDate('');
     setTime('');
+    setMentorName('');
   };
   useEffect(() => {
     if (reserv) {
@@ -50,13 +51,13 @@ const Reservation = () => {
         <InputField
           value={studentName}
           onChange={(event) => setStudentName(event.target.value)}
-          placeholder="Insert Your Name Please"
+          placeholder="Please insert your name"
           prefix
         />
         <InputField
           value={mentorName}
           onChange={(event) => setMentorName(event.target.value)}
-          placeholder="Insert Mentor Please"
+          placeholder="Please enter mentor name"
           prefix
         />
         <PickerDate
@@ -73,6 +74,8 @@ const Reservation = () => {
           placeholder="Pick the time"
           items={json.time}
         />
+        
+        <Link to='/confirm' className="book_btn">
         <Button
           className="book__btn"
           onClick={() =>
@@ -85,10 +88,12 @@ const Reservation = () => {
           }
         >
           Book Now
-        </Button>
+        </Button> 
+        </Link>
         <Button className="book__reset" onClick={() => clearState()}>
           Reset
         </Button>
+      
       </div>
     </div>
   );
