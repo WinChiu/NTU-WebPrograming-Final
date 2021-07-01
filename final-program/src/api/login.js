@@ -7,7 +7,6 @@ const loginAccount = async (name, password, memberType) => {
     data: { msg },
   } = await instance.post("/login/login_account", null, { params: { name, password, memberType } });
 
- 
   return msg;
 };
 
