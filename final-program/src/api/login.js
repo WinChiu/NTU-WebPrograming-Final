@@ -5,7 +5,7 @@ const instance = axios.create({ baseURL: "http://localhost:4000" || `${process.e
 const loginAccount = async (name, password, memberType) => {
   const {
     data: { msg },
-  } = await instance.post("/login/login_account", null, { params: { name, password, memberType } });
+  } = await axios.post("/login/login_account", null, { params: { name, password, memberType } });
 
   return msg;
 };
@@ -13,7 +13,7 @@ const loginAccount = async (name, password, memberType) => {
 const registerAccount = async (name, password, memberType, email, money) => {
   const {
     data: { msg },
-  } = await instance.post("/login/register", null, { params: { name, password, memberType, email, money } });
+  } = await axios.post("/login/register", null, { params: { name, password, memberType, email, money } });
 
   return msg;
 };

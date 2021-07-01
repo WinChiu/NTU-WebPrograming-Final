@@ -1,14 +1,14 @@
 import axios from "axios";
 const url = window.location.origin;
 
-const instance = axios.create({ baseURL: "http://localhost:4000/note" || `${process.env.baseURL}/note` });
+const instance = axios.create({ baseURL: "http://localhost:4000" || `${process.env.baseURL}` });
 
 //member name and note name
 const buyNote = async (member, note) => {
   const {
     //data is the reserve word, money is the return parameters
     data: { money },
-  } = await instance.post(`buyNote`, null, { params: { member, note } });
+  } = await axios.post(`/note/buyNote`, null, { params: { member, note } });
 
   return money;
 };
@@ -34,8 +34,8 @@ const addNote = async (member, note) => {
 */
 
 // for addNote
-const uploadurl = "http://localhost:4000/note/addNote/" || `${process.env.baseURL}/note/addNote/`;
-
+// const uploadurl = "http://localhost:4000/note/addNote/" || `${process.env.baseURL}/note/addNote/`;
+const uploadurl = "/note/addNote";
 const createitem = (member, title, grade, subject, price, img, description, pdffile, pdffile_preview) =>
   axios.post(uploadurl, { member, title, grade, subject, price, img, description, pdffile, pdffile_preview });
 
@@ -62,7 +62,7 @@ const fetchAuthor = async (id) => {
   const {
     //data is the reserve word, author is the return parameters
     data: { authorName },
-  } = await instance.post(`fetchAuthor`, null, { params: { id } });
+  } = await axios.post(`/note/fetchAuthor`, null, { params: { id } });
 
   return authorName;
 };
@@ -70,7 +70,7 @@ const fetchAuthor = async (id) => {
 const checkHaveBuy = async (id, memberName) => {
   const {
     data: { haveBuy },
-  } = await instance.get(`checkHaveBuy`, { params: { id, memberName } });
+  } = await axios.get(`/note/checkHaveBuy`, { params: { id, memberName } });
 
   return haveBuy;
 };
@@ -79,14 +79,14 @@ const testAddMoney = async (name) => {
   const {
     //data is the reserve word, money is the name of return parameter
     data: { money },
-  } = await instance.post(`${name}/addMoney`, null, { params: { name } });
+  } = await axios.post(`/note/${name}/addMoney`, null, { params: { name } });
   return money;
 };
 
 const testResetMoney = async (name) => {
   const {
     data: { money },
-  } = await instance.post(`${name}/resetMoney`, null, { params: { name } });
+  } = await axios.post(`/note/${name}/resetMoney`, null, { params: { name } });
   return money;
 };
 
