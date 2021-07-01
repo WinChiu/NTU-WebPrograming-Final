@@ -20,9 +20,8 @@ function MentorPlansMenu() {
                 <h3>國內大學</h3>
                 <h4>備審資料輔導</h4>
                 <ul className='MentorPlans__container-features'>
-                  <li>100 Transactions</li>
-                  <li>2% Cash Back</li>
-                  <li>$10,000 Limit</li>
+                  <li>大量優秀備審模板</li>
+                  <li>模擬二階面試問答</li>
                 </ul>
 
                 <Link to='/reservation' className="btn-link">
@@ -40,9 +39,8 @@ function MentorPlansMenu() {
                 <h3>國內大學</h3>
                 <h4>考試準備輔導</h4>
                 <ul className='MentorPlans__container-features'>
-                  <li>1000 Transactions</li>
-                  <li>3.5% Cash Back</li>
-                  <li>$100,000 Limit</li>
+                  <li>讀書方法分享</li>
+                  <li>志願選填建議</li>
                 </ul>
                 <Link to='/reservation' className="btn-link">
                   <Button buttonSize='btn--wide' buttonColor='primary'>
@@ -59,9 +57,8 @@ function MentorPlansMenu() {
                 <h3>國外大學</h3>
                 <h4>申請事務輔導</h4>
                 <ul className='MentorPlans__container-features'>
-                  <li>Unlimited Transactions</li>
-                  <li>5% Cash Back</li>
-                  <li>Unlimited Spending</li>
+                  <li>大量優秀作文範例</li>
+                  <li>模擬二階面試問答</li>
                 </ul>
                 <Link to='/reservation' className="btn-link">
                   <Button buttonSize='btn--wide' buttonColor='primary'>
@@ -78,9 +75,8 @@ function MentorPlansMenu() {
                 <h3>國外大學</h3>
                 <h4>考試準備輔導</h4>
                 <ul className='MentorPlans__container-features'>
-                  <li>Unlimited Transactions</li>
-                  <li>5% Cash Back</li>
-                  <li>Unlimited Spending</li>
+                  <li>讀書方法分享</li>
+                  <li>選校選系建議</li>
                 </ul>
                 <Link to='/reservation' className="btn-link">
                   <Button buttonSize='btn--wide' buttonColor='primary'>
