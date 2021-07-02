@@ -23,6 +23,7 @@
     "dotenv-defaults": "^2.0.2",
     "express": "^4.17.1",
     "mongoose": "^5.12.14",
+    "node": "^16.4.0",
     "routers": "^0.1.4",
     "serve-favicon": "^2.5.0",
     "v8flags": "^3.2.0"
