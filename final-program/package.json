@@ -8,7 +8,7 @@
     "node": "^16.4.0"
   },
   "scripts": {
-    "start": "nodemon server.js --ext js --watch src --exec babel-node",
+    "start": "node server.js --ext js --watch src --exec babel-node",
     "server": "nodemon server.js --ext js,graphql --exec babel-node",
     "heroku-postbuild": " cd client && yarn && yarn build"
   },
