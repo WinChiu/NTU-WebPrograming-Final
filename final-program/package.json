@@ -24,6 +24,7 @@
     "express": "^4.17.1",
     "mongoose": "^5.12.14",
     "routers": "^0.1.4",
+    "serve-favicon": "^2.5.0",
     "v8flags": "^3.2.0"
   }
 }
