@@ -19,17 +19,20 @@ app.use(express.json({ limit: "30mb", extended: true }));
 app.use(express.urlencoded({ limit: "30mb", extended: true }));
 // should according to the url of axios in frontends
 
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "client/build")));
 app.use("/note", noteRoutes);
 app.use("/login", loginRoute);
 app.use("/account", accountRoute);
 app.use("/note", account_noteRoute);
 
-// app.get("/", (req, res) => {
-//   res.send("Hello World");
-// });
+app.get("/backendTest", (req, res) => {
+  res.send("Hello World");
+});
 
-const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "../build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
+});
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
@@ -46,7 +49,3 @@ mongoose
 mongoose.set("useFindAndModify", false);
 
 console.log(process.env.NODE_ENV);
-
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("../build"));
-// }
