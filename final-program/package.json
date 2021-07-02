@@ -5,9 +5,9 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "nodemon server.js nodemon server.js --ext js --watch src --exec babel-node",
+    "start": "nodemon server.js --ext js --watch src --exec babel-node",
     "server": "nodemon server.js --ext js,graphql --exec babel-node",
-    "heroku-postbuild": "cd client && yarn && yarn build"
+    "heroku-postbuild": "cd client && npm install && npm run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
