@@ -41,7 +41,7 @@ mongoose
   });
 mongoose.set("useFindAndModify", false);
 
-
+console.log(process.env.NODE_ENV);
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("../build"));
 }
