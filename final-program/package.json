@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server.js --ext js --watch src --exec babel-node",
     "server": "nodemon server.js --ext js,graphql --exec babel-node",
-    "heroku-postbuild": "cd client && npm install && npm run build"
+    "heroku-postbuild": "npm install && cd client && npm install && npm run build"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.5",
