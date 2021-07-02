@@ -10,6 +10,8 @@ let url = "https://ntu-webprograming-project.herokuapp.com/";
 
 // const instance = axios.create({ baseURL: "http://localhost:4000" || `${process.env.baseURL}` });
 const instance = axios.create({ baseURL: url });
+
+
 const loginAccount = async (name, password, memberType) => {
   console.log(process.env.NODE_ENV);
   const {

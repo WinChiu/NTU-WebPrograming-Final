@@ -24,13 +24,17 @@ app.use("/login", loginRoute);
 app.use("/account", accountRoute);
 app.use("/note", account_noteRoute);
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
+// app.get("/", (req, res) => {
+//   res.send("Hello World");
+// });
+
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "../build")));
 
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+
 mongoose
   .connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then((res) => {
@@ -42,6 +46,7 @@ mongoose
 mongoose.set("useFindAndModify", false);
 
 console.log(process.env.NODE_ENV);
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("../build"));
-}
+
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("../build"));
+// }

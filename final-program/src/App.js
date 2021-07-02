@@ -7,7 +7,7 @@ import Account from "./components/Account";
 import Note from "./components/note/NotePage";
 import AddNote from "./components/note/AddNote";
 import { useState, useEffect } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 const LOCALSTORAGE_LOGIN_STATUS = "isLoginPrev";
 const LOCALSTORAGE_LOGIN_MEMBER = "memberNamePrev";

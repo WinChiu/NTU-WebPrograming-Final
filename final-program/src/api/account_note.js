@@ -8,10 +8,9 @@ import axios from "axios";
 // }
 
 let url = "https://ntu-webprograming-project.herokuapp.com/";
-
 const instance = axios.create({ baseURL: url });
-
 // const instance = axios.create({ baseURL: "http://localhost:4000/note" || `${process.env.baseURL}/note` });
+
 
 //member name and note name
 const buyNote = async (member, note) => {
@@ -44,10 +43,20 @@ const addNote = async (member, note) => {
 */
 
 // for addNote
-const uploadurl = "http://localhost:4000/note/addNote/" || `${process.env.baseURL}/note/addNote/`;
+// const uploadurl = "http://localhost:4000/note/addNote/" || `${process.env.baseURL}/note/addNote/`;
 
 const createitem = (member, title, grade, subject, price, img, description, pdffile, pdffile_preview) =>
-  axios.post(uploadurl, { member, title, grade, subject, price, img, description, pdffile, pdffile_preview });
+  axios.post(url + "note/addNote/", {
+    member,
+    title,
+    grade,
+    subject,
+    price,
+    img,
+    description,
+    pdffile,
+    pdffile_preview,
+  });
 
 const addNote = async (member, note) => {
   try {
