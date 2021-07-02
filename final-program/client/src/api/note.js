@@ -10,8 +10,8 @@ import axios from "axios";
 //   url = "https://ntu-webprograming-project.herokuapp.com/";
 // }
 
-// let url = "https://ntu-webprograming-project.herokuapp.com/";
-let url = "http://localhost:4000/";
+let url = "https://ntu-webprograming-project.herokuapp.com/";
+// let url = "http://localhost:4000/";
 
 const getitems = () => axios.get(url + "noteindex");
 const createitem = (item) => axios.post(url + "noteindex", item);
