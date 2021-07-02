@@ -1,0 +1,97 @@
+.activityComp-section {
+  color: #fff;
+  padding: 160px 0;
+}
+
+.activityComp-row {
+  align-items: center;
+  background-color: rgb(194, 193, 193);
+}
+.activityComp-row .col {
+  padding-top: 48px;
+}
+
+.activityComp__container {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 25px;
+}
+
+.activityComp__containerItem {
+  margin: 15px;
+}
+.row {
+  display: flex;
+  margin: 25px;
+  flex-wrap: wrap;
+  align-content: stretch;
+  border-radius: 10px;
+}
+
+.col {
+  margin-bottom: 15px;
+  flex: 1;
+  max-width: 50%;
+  flex-basis: 50%;
+  align-items: center;
+}
+
+.activityComp-text-wrapper {
+  max-width: 540px;
+  padding-top: 0;
+  padding-bottom: 5px;
+}
+
+.activity_heading {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  font-size: 35px;
+  line-height: 1.1;
+  font-weight: 600;
+  color: #1c2237;
+}
+
+.activityComp-subtitle {
+  max-width: 440px;
+  margin-bottom: 35px;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.activityComp-img-wrapper {
+  max-width: 500px;
+  justify-self: start;
+}
+
+.activityComp-img {
+  max-width: 95%;
+  padding-right: 0;
+  margin: 5px;
+}
+
+.activityComp-img-wrapper img {
+  border: 0;
+  padding-top: 40px;
+  max-width: 100%;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+@media screen and (max-width: 991px) {
+  .container {
+    padding-right: 30px;
+    padding-left: 30px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .activityComp-text-wrapper {
+    padding-bottom: 65px;
+  }
+  .col {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}

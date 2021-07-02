@@ -4,6 +4,7 @@ import { loginAccount, registerAccount } from "../api/login.js";
 import { Form, Input, Button, Checkbox, Select } from "antd";
 import studentAvatar from "../images/student_avatar.png";
 import mentorAvatar from "../images/mentor_avatar.png";
+import registerImg from "../images/clipboard.png";
 
 function Login({ setIsLogin, setMemberName }) {
   const history = useHistory();
@@ -160,7 +161,8 @@ function Login({ setIsLogin, setMemberName }) {
   };
   const register = (
     <div className="login-type login-container">
-      <div className="register-logo"></div>
+      <img className="register-logo" src={registerImg} alt="registerImg" />
+
       <p style={{ color: "red", fontWeight: "bold" }}>{warningMsg}</p>
       <Form
         {...layout}
