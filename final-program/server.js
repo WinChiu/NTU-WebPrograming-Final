@@ -21,7 +21,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "client/build")));
-app.use(favicon(__dirname + "/client/build/favicon.ico"));
+app.use(favicon(path.join(__dirname, "/client/public/favicon.ico")));
 app.use("/note", noteRoutes);
 app.use("/login", loginRoute);
 app.use("/account", accountRoute);
