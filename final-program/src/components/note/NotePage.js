@@ -256,7 +256,7 @@ const NoteIndex = ({ memberName, isLogin }) => {
             variant="contained"
             color="primary"
             className="button"
-            startIcon={<SearchIcon />}
+            starticon={<SearchIcon />}
             onClick={handleClick_search}
           >
             搜尋筆記

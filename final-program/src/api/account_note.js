@@ -1,14 +1,22 @@
 import axios from "axios";
-const url = window.location.origin;
 
-const instance = axios.create({ baseURL: "http://localhost:4000/note" || `${process.env.baseURL}/note` });
+let url = "";
+if (process.env.NODE_ENV === "development") {
+  url = "http://localhost:4000/";
+} else {
+  url = "https://ntu-webprograming-project.herokuapp.com/";
+}
+
+const instance = axios.create({ baseURL: url });
+console.log(process.env.NODE_ENV);
+// const instance = axios.create({ baseURL: "http://localhost:4000/note" || `${process.env.baseURL}/note` });
 
 //member name and note name
 const buyNote = async (member, note) => {
   const {
     //data is the reserve word, money is the return parameters
     data: { money },
-  } = await instance.post(`buyNote`, null, { params: { member, note } });
+  } = await instance.post(`note/buyNote`, null, { params: { member, note } });
 
   return money;
 };
@@ -62,7 +70,7 @@ const fetchAuthor = async (id) => {
   const {
     //data is the reserve word, author is the return parameters
     data: { authorName },
-  } = await instance.post(`fetchAuthor`, null, { params: { id } });
+  } = await instance.post(`note/fetchAuthor`, null, { params: { id } });
 
   return authorName;
 };
@@ -70,7 +78,7 @@ const fetchAuthor = async (id) => {
 const checkHaveBuy = async (id, memberName) => {
   const {
     data: { haveBuy },
-  } = await instance.get(`checkHaveBuy`, { params: { id, memberName } });
+  } = await instance.get(`note/checkHaveBuy`, { params: { id, memberName } });
 
   return haveBuy;
 };
@@ -79,14 +87,14 @@ const testAddMoney = async (name) => {
   const {
     //data is the reserve word, money is the name of return parameter
     data: { money },
-  } = await instance.post(`${name}/addMoney`, null, { params: { name } });
+  } = await instance.post(`note/${name}/addMoney`, null, { params: { name } });
   return money;
 };
 
 const testResetMoney = async (name) => {
   const {
     data: { money },
-  } = await instance.post(`${name}/resetMoney`, null, { params: { name } });
+  } = await instance.post(`note/${name}/resetMoney`, null, { params: { name } });
   return money;
 };
 
