@@ -35,7 +35,7 @@ function App() {
         <Route exact path="/">
           <AboutPage />
         </Route>
-        <Route path="/note">
+        <Route path="/notepage">
           <Note memberName={memberName} isLogin={isLogin} />
         </Route>
         <Route path="/uploadNote">

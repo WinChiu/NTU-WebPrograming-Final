@@ -135,7 +135,7 @@ const NoteIndex = ({ memberName, isLogin }) => {
   useEffect(() => {
     const fetchData = async () => {
       const result = await getItems();
-
+      console.log(result);
       setNotes(result);
       let member_temp;
       if (isLogin !== "notLogin") {

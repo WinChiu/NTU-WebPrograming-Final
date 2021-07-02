@@ -22,7 +22,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }));
 const __dirname = path.resolve();
 app.use(express.static(path.join(__dirname, "client/build")));
 app.use(favicon(path.join(__dirname, "/client/public/favicon.ico")));
-app.use("/note", noteRoutes);
+app.use("/noteindex", noteRoutes);
 app.use("/login", loginRoute);
 app.use("/account", accountRoute);
 app.use("/note", account_noteRoute);
@@ -48,5 +48,3 @@ mongoose
     console.log(err);
   });
 mongoose.set("useFindAndModify", false);
-
-console.log(process.env.NODE_ENV);
